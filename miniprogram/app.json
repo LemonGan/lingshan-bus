@@ -8,13 +8,12 @@
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#1677FF",
     "navigationBarTitleText": "灵山公交",
-    "navigationBarTitleText": "light"
+    "navigationBarTitleTextStyle": "light"
   },
   "tabBar": {
     "color": "#999999",
     "selectedColor": "#1677FF",
     "backgroundColor": "#FFFFFF",
-    "borderStyle": "white",
     "list": [
       {
         "pagePath": "pages/index/index",
