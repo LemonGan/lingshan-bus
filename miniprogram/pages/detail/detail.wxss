@@ -1,6 +1,6 @@
 /* detail.wxss */
 page {
-  background-color: #f8f9fa;
+  background-color: #f5f7fa;
 }
 
 .container {
@@ -11,37 +11,53 @@ page {
 /* 头部卡片 */
 .header {
   background: linear-gradient(135deg, #1677FF, #4096ff);
-  border-radius: 32rpx;
-  padding: 48rpx 40rpx;
+  border-radius: 28rpx;
+  padding: 44rpx 36rpx;
   margin-bottom: 30rpx;
-  box-shadow: 0 8rpx 32rpx rgba(22, 119, 255, 0.3);
+  box-shadow: 0 8rpx 28rpx rgba(22, 119, 255, 0.28);
+}
+
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16rpx;
 }
 
 .line-number {
   color: #fff;
-  font-size: 56rpx;
+  font-size: 52rpx;
   font-weight: 700;
-  margin-bottom: 16rpx;
+}
+
+.line-type {
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+  font-size: 24rpx;
+  padding: 8rpx 20rpx;
+  border-radius: 30rpx;
 }
 
 .line-name {
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 34rpx;
+  color: rgba(255,255,255,0.95);
+  font-size: 32rpx;
+  font-weight: 500;
+  line-height: 1.4;
 }
 
-/* 信息卡片 */
+/* 信息网格 */
 .info-card {
   background-color: #fff;
-  border-radius: 24rpx;
-  padding: 36rpx;
+  border-radius: 20rpx;
+  padding: 30rpx;
   margin-bottom: 30rpx;
-  box-shadow: 0 2rpx 16rpx rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.05);
 }
 
 .info-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24rpx;
+  gap: 20rpx;
 }
 
 .info-item {
@@ -49,39 +65,43 @@ page {
 }
 
 .info-label {
-  font-size: 26rpx;
+  font-size: 24rpx;
   color: #888;
-  margin-bottom: 12rpx;
+  margin-bottom: 10rpx;
 }
 
 .info-value {
-  font-size: 32rpx;
+  font-size: 30rpx;
   font-weight: 600;
   color: #1a1a1a;
+}
+
+.info-value.highlight {
+  color: #1677FF;
 }
 
 /* 站点 */
 .section-title {
-  font-size: 34rpx;
+  font-size: 32rpx;
   font-weight: 600;
   color: #1a1a1a;
   margin-bottom: 24rpx;
   padding-left: 16rpx;
-  border-left: 6rpx solid #1677FF;
+  border-left: 5rpx solid #1677FF;
 }
 
 .stations {
   background-color: #fff;
-  border-radius: 24rpx;
-  padding: 24rpx 36rpx;
+  border-radius: 20rpx;
+  padding: 24rpx 32rpx;
   margin-bottom: 30rpx;
-  box-shadow: 0 2rpx 16rpx rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.05);
 }
 
 .station-item {
   display: flex;
   align-items: center;
-  padding: 24rpx 0;
+  padding: 22rpx 0;
   border-bottom: 1rpx solid #f0f0f0;
 }
 
@@ -90,60 +110,48 @@ page {
 }
 
 .station-dot {
-  width: 20rpx;
-  height: 20rpx;
+  width: 18rpx;
+  height: 18rpx;
   background: linear-gradient(135deg, #1677FF, #4096ff);
   border-radius: 50%;
-  margin-right: 24rpx;
+  margin-right: 20rpx;
   flex-shrink: 0;
 }
 
-.station-dot.first {
-  width: 28rpx;
-  height: 28rpx;
-  box-shadow: 0 0 16rpx rgba(22, 119, 255, 0.4);
+.station-dot.start {
+  width: 24rpx;
+  height: 24rpx;
+  box-shadow: 0 0 14rpx rgba(22, 119, 255, 0.4);
 }
 
-.station-dot.last {
+.station-dot.end {
   background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
 }
 
 .station-name {
-  font-size: 30rpx;
+  font-size: 28rpx;
   color: #333;
 }
 
-/* 时刻表 */
-.schedule-section {
-  margin-top: 20rpx;
-}
-
-.schedule {
+/* 备注 */
+.notes {
   background-color: #fff;
-  border-radius: 24rpx;
-  padding: 24rpx;
-  box-shadow: 0 2rpx 16rpx rgba(0, 0, 0, 0.06);
+  border-radius: 20rpx;
+  padding: 30rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.05);
 }
 
-.schedule-title {
-  font-size: 30rpx;
-  font-weight: 600;
-  color: #1677FF;
-  margin-bottom: 20rpx;
-  text-align: center;
-}
-
-.time-grid {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 16rpx;
-}
-
-.time-item {
-  background-color: #f5f7fa;
-  padding: 16rpx 8rpx;
-  border-radius: 12rpx;
-  text-align: center;
+.note-item {
   font-size: 26rpx;
-  color: #333;
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 12rpx;
+}
+
+.note-item:last-child {
+  margin-bottom: 0;
+}
+
+.note-icon {
+  margin-right: 8rpx;
 }
