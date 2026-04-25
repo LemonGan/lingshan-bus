@@ -2,22 +2,26 @@
 Page({
   data: {
     hotLines: [
-      { id: 1, number: '1路', name: '灵山汽车站 - 人民医院' },
-      { id: 2, number: '2路', name: '广场 - 县政府' },
-      { id: 3, number: '3路', name: '火车站 - 百货大楼' },
-      { id: 4, number: '5路', name: '汽车站 - 光大广场' }
+      { id: 101, number: '101路', name: '鹏大汽车城 — 园丰牧业', firstBus: '06:40', lastBus: '18:00' },
+      { id: 102, number: '102路', name: '汽车南站 — 洲塘村', firstBus: '08:00', lastBus: '23:30' },
+      { id: 106, number: '106路', name: '大琴垌小学 — 华源大厦', firstBus: '08:00', lastBus: '23:30' },
+      { id: 208, number: '208路', name: '平山街 — 中医院', firstBus: '07:00', lastBus: '18:00' }
     ]
   },
   
   onSearchInput(e) {
     const value = e.detail.value
-    // TODO: 搜索线路
+    if (value) {
+      wx.navigateTo({ url: '/pages/list/list?keyword=' + value })
+    }
   },
   
   goToDetail(e) {
     const id = e.currentTarget.dataset.id
-    wx.navigateTo({
-      url: '/pages/detail/detail?id=' + id
-    })
+    wx.navigateTo({ url: '/pages/detail/detail?id=' + id })
+  },
+  
+  goToList(e) {
+    wx.switchTab({ url: '/pages/list/list' })
   }
 })

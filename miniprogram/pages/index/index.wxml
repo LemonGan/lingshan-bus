@@ -18,6 +18,28 @@
         <text class="line-number">{{item.number}}</text>
       </view>
       <text class="line-name">{{item.name}}</text>
+      <text class="line-time">首班 {{item.firstBus}} - 末班 {{item.lastBus}}</text>
+    </view>
+  </view>
+  
+  <!-- 分类标签 -->
+  <view class="section-header" style="margin-top:40rpx;">
+    <text class="section-title">线路分类</text>
+    <view class="section-line"></view>
+  </view>
+  
+  <view class="category-list">
+    <view class="category-item" bindtap="goToList" data-type="城区">
+      <text class="category-name">城区公交</text>
+      <text class="category-desc">2元一票制</text>
+    </view>
+    <view class="category-item" bindtap="goToList" data-type="城乡">
+      <text class="category-name">城乡公交</text>
+      <text class="category-desc">分段计费</text>
+    </view>
+    <view class="category-item" bindtap="goToList" data-type="跨县">
+      <text class="category-name">跨县公交</text>
+      <text class="category-desc">分段计费</text>
     </view>
   </view>
 </view>
