@@ -1,0 +1,37 @@
+<!--detail.wxml-->
+<view class="container">
+  <view class="header">
+    <view class="line-number">{{line.number}}</view>
+    <view class="line-name">{{line.name}}</view>
+  </view>
+  
+  <view class="info-card">
+    <view class="info-row">
+      <text class="label">首班时间</text>
+      <text class="value">{{line.firstBus}}</text>
+    </view>
+    <view class="info-row">
+      <text class="label">末班时间</text>
+      <text class="value">{{line.lastBus}}</text>
+    </view>
+    <view class="info-row">
+      <text class="label">票价</text>
+      <text class="value">{{line.price}}元</text>
+    </view>
+  </view>
+  
+  <view class="section-title">线路站点</view>
+  <view class="stations">
+    <view class="station-item" wx:for="{{line.stations}}" wx:key="index">
+      <view class="station-dot"></view>
+      <view class="station-name">{{item}}</view>
+    </view>
+  </view>
+  
+  <view class="section-title">首班时间</view>
+  <view class="schedule">
+    <view class="time-row" wx:for="{{line.schedule}}" wx:key="index">
+      <text class="time">{{item}}</text>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,109 @@
+/* detail.wxss */
+.container {
+  padding: 20rpx;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+.header {
+  background-color: #1677FF;
+  padding: 40rpx;
+  border-radius: 16rpx;
+  margin-bottom: 30rpx;
+}
+
+.line-number {
+  color: #fff;
+  font-size: 48rpx;
+  font-weight: bold;
+  margin-bottom: 16rpx;
+}
+
+.line-name {
+  color: #fff;
+  font-size: 32rpx;
+}
+
+.info-card {
+  background-color: #fff;
+  border-radius: 12rpx;
+  padding: 30rpx;
+  margin-bottom: 30rpx;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #eee;
+}
+
+.info-row:last-child {
+  border-bottom: none;
+}
+
+.label {
+  color: #666;
+  font-size: 28rpx;
+}
+
+.value {
+  color: #333;
+  font-size: 28rpx;
+  font-weight: bold;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  margin-bottom: 20rpx;
+  color: #333;
+}
+
+.stations {
+  background-color: #fff;
+  border-radius: 12rpx;
+  padding: 20rpx 30rpx;
+  margin-bottom: 30rpx;
+}
+
+.station-item {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.station-item:last-child {
+  border-bottom: none;
+}
+
+.station-dot {
+  width: 16rpx;
+  height: 16rpx;
+  background-color: #1677FF;
+  border-radius: 50%;
+  margin-right: 20rpx;
+}
+
+.station-name {
+  font-size: 28rpx;
+  color: #333;
+}
+
+.schedule {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20rpx;
+}
+
+.time-row {
+  background-color: #fff;
+  padding: 16rpx 24rpx;
+  border-radius: 8rpx;
+}
+
+.time {
+  font-size: 28rpx;
+  color: #333;
+}

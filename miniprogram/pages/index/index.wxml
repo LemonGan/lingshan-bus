@@ -1,0 +1,16 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="search-box">
+    <input class="search-input" placeholder="搜索线路或站点" bindinput="onSearchInput" />
+  </view>
+  
+  <view class="hot-lines">
+    <view class="section-title">热门线路</view>
+    <view class="line-list">
+      <view class="line-item" wx:for="{{hotLines}}" wx:key="id" bindtap="goToDetail" data-id="{{item.id}}">
+        <view class="line-number">{{item.number}}</view>
+        <view class="line-name">{{item.name}}</view>
+      </view>
+    </view>
+  </view>
+</view>

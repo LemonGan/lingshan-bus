@@ -1,0 +1,16 @@
+<!--list.wxml-->
+<view class="container">
+  <view class="header">
+    <view class="title">线路列表</view>
+  </view>
+  
+  <view class="line-list">
+    <view class="line-item" wx:for="{{lines}}" wx:key="id" bindtap="goToDetail" data-id="{{item.id}}">
+      <view class="line-number">{{item.number}}</view>
+      <view class="line-info">
+        <view class="line-name">{{item.name}}</view>
+        <view class="line-time">首班 {{item.firstBus}} - 末班 {{item.lastBus}}</view>
+      </view>
+    </view>
+  </view>
+</view>
