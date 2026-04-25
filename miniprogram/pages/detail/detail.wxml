@@ -1,37 +1,46 @@
 <!--detail.wxml-->
 <view class="container">
+  <!-- 头部 -->
   <view class="header">
     <view class="line-number">{{line.number}}</view>
     <view class="line-name">{{line.name}}</view>
   </view>
   
+  <!-- 基本信息 -->
   <view class="info-card">
-    <view class="info-row">
-      <text class="label">首班时间</text>
-      <text class="value">{{line.firstBus}}</text>
-    </view>
-    <view class="info-row">
-      <text class="label">末班时间</text>
-      <text class="value">{{line.lastBus}}</text>
-    </view>
-    <view class="info-row">
-      <text class="label">票价</text>
-      <text class="value">{{line.price}}元</text>
+    <view class="info-grid">
+      <view class="info-item">
+        <view class="info-label">首班</view>
+        <view class="info-value">{{line.firstBus}}</view>
+      </view>
+      <view class="info-item">
+        <view class="info-label">末班</view>
+        <view class="info-value">{{line.lastBus}}</view>
+      </view>
+      <view class="info-item">
+        <view class="info-label">票价</view>
+        <view class="info-value">{{line.price}}元</view>
+      </view>
     </view>
   </view>
   
+  <!-- 站点 -->
   <view class="section-title">线路站点</view>
   <view class="stations">
     <view class="station-item" wx:for="{{line.stations}}" wx:key="index">
-      <view class="station-dot"></view>
-      <view class="station-name">{{item}}</view>
+      <view class="station-dot {{index === 0 ? 'first' : (index === line.stations.length - 1 ? 'last' : '')}}"></view>
+      <text class="station-name">{{item}}</text>
     </view>
   </view>
   
-  <view class="section-title">首班时间</view>
-  <view class="schedule">
-    <view class="time-row" wx:for="{{line.schedule}}" wx:key="index">
-      <text class="time">{{item}}</text>
+  <!-- 时刻表 -->
+  <view class="schedule-section">
+    <view class="section-title">时刻表</view>
+    <view class="schedule">
+      <view class="schedule-title">📅 {{line.number}} 班次时间</view>
+      <view class="time-grid">
+        <text class="time-item" wx:for="{{line.schedule}}" wx:key="index">{{item}}</text>
+      </view>
     </view>
   </view>
 </view>
