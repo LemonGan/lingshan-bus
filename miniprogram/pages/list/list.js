@@ -12,6 +12,7 @@ Page({
       { id: 208, number: '208路', name: '平山街 — 中医院', firstBus: '07:00', lastBus: '18:00', type: '城区', price: '2元' },
       { id: 210, number: '210路', name: '城区短途接驳线', firstBus: '', lastBus: '', type: '城区', price: '2元' },
       { id: 3, number: '3路', name: '建材市场 — 灵山职校', firstBus: '', lastBus: '', type: '城区', price: '2元' },
+      { id: 808, number: '808路内环', name: '建材市场（环线）', firstBus: '06:00', lastBus: '21:00', type: '城区', price: '免费' },
       // 城乡乡镇公交
       { id: 502, number: '502路', name: '园丰牧业 — 太平镇', firstBus: '06:30', lastBus: '18:10', type: '城乡', price: '2-19.9元' },
       { id: 802, number: '802路', name: '汽车总站 — 石塘镇', firstBus: '06:00', lastBus: '18:30', type: '城乡', price: '2-8元' },
