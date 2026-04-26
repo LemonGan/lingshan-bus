@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/bus/bus",
     "pages/list/list",
     "pages/detail/detail"
   ],
@@ -8,26 +9,7 @@
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#1677FF",
     "navigationBarTitleText": "灵山公交",
-    "navigationBarTitleTextStyle": "light"
-  },
-  "tabBar": {
-    "color": "#999999",
-    "selectedColor": "#1677FF",
-    "backgroundColor": "#FFFFFF",
-    "list": [
-      {
-        "pagePath": "pages/index/index",
-        "text": "首页",
-        "iconPath": "assets/home.png",
-        "selectedIconPath": "assets/home-active.png"
-      },
-      {
-        "pagePath": "pages/list/list",
-        "text": "线路",
-        "iconPath": "assets/bus.png",
-        "selectedIconPath": "assets/bus-active.png"
-      }
-    ]
+    "navigationBarTextStyle": "white"
   },
   "sitemapLocation": "sitemap.json"
 }

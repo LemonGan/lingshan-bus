@@ -1,45 +1,77 @@
-<!--detail.wxml-->
-<view class="container">
-  <!-- 头部 -->
+<!--pages/detail/detail.wxml-->
+<view class="detail-container" wx:if="{{line}}">
+  <!-- 顶部信息 -->
   <view class="header">
-    <view class="line-number">{{line.number}}</view>
-    <view class="line-name">{{line.name}}</view>
-  </view>
-  
-  <!-- 基本信息 -->
-  <view class="info-card">
-    <view class="info-grid">
+    <view class="line-title">
+      <text class="line-num {{line.type === '城区' ? 'urban' : 'rural'}}">{{line.id}}</text>
+      <text class="line-type">{{line.type}}公交</text>
+    </view>
+    
+    <!-- 方向切换按钮 -->
+    <view class="direction-switch" bindtap="switchDirection">
+      <text class="dir-station">{{direction === 'forward' ? line.start : line.end}}</text>
+      <view class="dir-btn">
+        <text>切换</text>
+        <text class="dir-icon">{{direction === 'forward' ? '→' : '←'}}</text>
+      </view>
+      <text class="dir-station">{{direction === 'forward' ? line.end : line.start}}</text>
+    </view>
+
+    <view class="info-row">
       <view class="info-item">
-        <view class="info-label">首班</view>
-        <view class="info-value">{{line.firstBus}}</view>
+        <text class="info-label">首末班</text>
+        <text class="info-value">{{displayTime}}</text>
       </view>
       <view class="info-item">
-        <view class="info-label">末班</view>
-        <view class="info-value">{{line.lastBus}}</view>
+        <text class="info-label">间隔</text>
+        <text class="info-value">{{line.interval}}</text>
       </view>
       <view class="info-item">
-        <view class="info-label">票价</view>
-        <view class="info-value">{{line.price}}元</view>
+        <text class="info-label">票价</text>
+        <text class="info-value price">{{line.price}}</text>
       </view>
     </view>
   </view>
-  
-  <!-- 站点 -->
-  <view class="section-title">线路站点</view>
-  <view class="stations">
-    <view class="station-item" wx:for="{{line.stations}}" wx:key="index">
-      <view class="station-dot {{index === 0 ? 'first' : (index === line.stations.length - 1 ? 'last' : '')}}"></view>
-      <text class="station-name">{{item}}</text>
+
+  <!-- 当前时间 & 运营状态 -->
+  <view class="time-status">
+    <view class="current-time">
+      <text class="time-label">当前时间</text>
+      <text class="time-value">{{currentTime}}</text>
+    </view>
+    <view class="operating-status {{isOperating ? 'operating' : 'off-duty'}}">
+      <text class="status-dot"></text>
+      <text>{{isOperating ? '运营中' : '已收车'}}</text>
     </view>
   </view>
-  
-  <!-- 时刻表 -->
-  <view class="schedule-section">
-    <view class="section-title">时刻表</view>
-    <view class="schedule">
-      <view class="schedule-title">📅 {{line.number}} 班次时间</view>
-      <view class="time-grid">
-        <text class="time-item" wx:for="{{line.schedule}}" wx:key="index">{{item}}</text>
+
+  <!-- 站点时间轴 -->
+  <view class="station-timeline">
+    <view class="timeline-title">
+      <text>站点列表</text>
+      <text class="station-count">共{{stations.length}}站</text>
+    </view>
+    
+    <view class="timeline-list">
+      <view class="timeline-item {{index === 0 ? 'start' : ''}} {{index === stations.length - 1 ? 'end' : ''}}" 
+            wx:for="{{stations}}" 
+            wx:key="index"
+            bindtap="showStationDetail"
+            data-station="{{item}}">
+        <view class="timeline-dot">
+          <view class="dot"></view>
+          <view class="dot-line" wx:if="{{index < stations.length - 1}}"></view>
+        </view>
+        <view class="station-info">
+          <text class="station-name">{{item.name}}</text>
+          <view class="station-arrival" wx:if="{{isOperating}}">
+            <text class="arrival-time">{{item.arrivalTime || '约' + item.duration + '分'}}</text>
+            <text class="arrival-next" wx:if="{{item.arrivalTime}}">到站</text>
+          </view>
+          <view class="station-arrival" wx:if="{{!isOperating}}">
+            <text class="arrival-closed">未运营</text>
+          </view>
+        </view>
       </view>
     </view>
   </view>

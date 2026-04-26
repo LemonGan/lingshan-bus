@@ -1,77 +1,158 @@
-// detail.js
-const busData = {
-  808: {
-    id: 808, number: '808路内环', name: '建材市场（环线）',
-    firstBus: '06:00', lastBus: '21:00', price: '免费', type: '城区',
-    stations: ['建材市场', '体育馆', '正久宝石幼儿园', '光大锦绣山河', '公安局(新)', '浙商城', '兴莱鞋厂', '十里市场', '三科农商城', '正久职中', '六峰欢乐世界', '锦绣时代广场', '总工会', '聚龙湾', '交通运输局', '二医院', '建材市场'],
-    features: '环线公交，免费乘坐，覆盖城区多个站点'
-  },
-  101: {
-    id: 101, number: '101路', name: '鹏大汽车城 — 园丰牧业',
-    firstBus: '06:40', lastBus: '18:00', price: '2元', type: '城区',
-    stations: ['鹏大汽车城', '灵山职校', '交警大队', '华源大厦', '教育局', '汽车总站', '步行街', '中医院', '园丰牧业'],
-    features: '首末班06:40-18:00，发车间隔约15分钟/趟，覆盖城北、老城核心区域'
-  },
-  102: {
-    id: 102, number: '102路', name: '汽车南站 — 洲塘村',
-    firstBus: '08:00', lastBus: '23:30', price: '2元', type: '城区',
-    stations: ['汽车南站', '江南路', '灵山旧城区', '城南洲塘片区'],
-    features: '首末班08:00-23:30，常规循环发车，夜间运营时间长'
-  },
-  106: {
-    id: 106, number: '106路', name: '大琴垌小学 — 华源大厦',
-    firstBus: '08:00', lastBus: '23:30', price: '2元', type: '城区',
-    stations: ['大琴垌小学', '城北片区', '六峰山景区', '老城核心商圈', '华源大厦'],
-    features: '首末班08:00-23:30，常规循环发车，覆盖旅游、居民区'
-  },
-  208: {
-    id: 208, number: '208路', name: '平山街 — 中医院',
-    firstBus: '07:00', lastBus: '18:00', price: '2元', type: '城区',
-    stations: ['平山街', '丰收路', '人民医院', '中医院'],
-    features: '首末班07:00-18:00，发车间隔11-14分钟/趟，全程16站，主打就医通勤'
-  },
-  502: {
-    id: 502, number: '502路', name: '园丰牧业 — 太平镇',
-    firstBus: '06:30', lastBus: '18:10', price: '2-19.9元', type: '城乡',
-    stations: ['园丰牧业', '六峰山', '檀圩', '那隆', '三隆', '陆屋', '太平镇'],
-    features: '首末班06:30-18:10，发车间隔25分钟/趟，日发48班，全程86km，耗时约2小时'
-  },
-  802: {
-    id: 802, number: '802路', name: '汽车总站 — 石塘镇',
-    firstBus: '06:00', lastBus: '18:30', price: '2-8元', type: '城乡',
-    stations: ['汽车总站', '中医院', '佛子镇', '灵东水库', '石塘镇'],
-    features: '首末班06:00-18:30，发车间隔60分钟/趟，覆盖灵山北部乡镇'
-  },
-  8011: {
-    id: 8011, number: '8011路', name: '六峰步行街 — 那隆街',
-    firstBus: '06:20', lastBus: '19:30', price: '2-5元', type: '城乡',
-    stations: ['六峰步行街', '汽车总站', '檀圩', '天山中学', '那隆街'],
-    features: '灵山发车06:20-18:00，那隆返程07:00-19:30，共24站，去往那隆镇主力线路'
-  },
-  8028: {
-    id: 8028, number: '8028路', name: '聚龙湾 — 陆屋客运站',
-    firstBus: '06:30', lastBus: '18:30', price: '分段', type: '城乡',
-    stations: ['聚龙湾', '步行街', '汽车总站', '檀圩', '那隆', '三隆', '陆屋客运站'],
-    features: '首末班06:30-18:30，发车间隔20分钟/趟，共51站，灵山站点最多、覆盖乡镇最广'
-  },
-  8022: {
-    id: 8022, number: '8022路', name: '灵山聚龙湾 — 浦北汽车总站',
-    firstBus: '07:00', lastBus: '17:30', price: '分段', type: '跨县',
-    stations: ['灵山聚龙湾', '实验小学', '步行街', '汽车总站', '新圩', '浦北汽车总站'],
-    features: '首末班07:00-17:30，发车间隔30分钟/趟，连通灵山、浦北两大县域'
-  }
-}
+// pages/detail/detail.js
+const busData = require('../../utils/bus_data.js');
 
 Page({
   data: {
-    line: {}
+    line: null,
+    direction: 'forward',
+    stations: [],
+    currentTime: '',
+    isOperating: false,
+    interval: 15,
+    displayTime: ''  // 显示的首末班时间
   },
-  
+
   onLoad(options) {
-    const id = parseInt(options.id)
-    const lineData = busData[id]
-    if (lineData) {
-      this.setData({ line: lineData })
+    const lineId = options.id;
+    const line = busData.lines.find(l => l.id === lineId);
+    if (line) {
+      const stations = JSON.parse(JSON.stringify(line.stations));
+      this.setData({ 
+        line: JSON.parse(JSON.stringify(line)),
+        stations: stations,
+        direction: 'forward',
+        displayTime: line.time
+      });
+      this.calculateTimes();
     }
+  },
+
+  onShow() {
+    this.calculateTimes();
+  },
+
+  calculateTimes() {
+    const { line, stations, direction } = this.data;
+    if (!line || !stations.length) return;
+
+    const now = new Date();
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+    const currentMinutes = hours * 60 + minutes;
+
+    // 根据方向选择对应的时间
+    const timeStr = direction === 'forward' ? line.time : (line.timeBackward || line.time);
+    this.setData({ displayTime: timeStr });
+
+    const timeParts = timeStr.split('-');
+    const startTime = timeParts[0].split(':');
+    const endTime = timeParts[1].split(':');
+    const startMinutes = parseInt(startTime[0]) * 60 + parseInt(startTime[1]);
+    const endMinutes = parseInt(endTime[0]) * 60 + parseInt(endTime[1]);
+
+    const intervalStr = line.interval.replace('分钟', '');
+    const interval = parseInt(intervalStr) || 15;
+    const totalDuration = parseInt(line.duration) || 40;
+
+    const isOperating = currentMinutes >= startMinutes && currentMinutes <= endMinutes;
+    const timeStrNow = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+
+    // 计算下一趟车从当前方向起点发车的时间
+    let firstDeparture = startMinutes;
+    if (currentMinutes > startMinutes) {
+      const passedIntervals = Math.floor((currentMinutes - startMinutes) / interval);
+      firstDeparture = startMinutes + (passedIntervals + 1) * interval;
+    }
+
+    const updatedStations = stations.map((station) => {
+      let arrivalTime = null;
+      if (isOperating) {
+        // 跨天处理
+        const minutesInDay = 24 * 60;
+        const nextBusArrival = (firstDeparture + station.duration) % minutesInDay;
+        
+        if (nextBusArrival <= endMinutes + totalDuration) {
+          const arrivalHour = Math.floor(nextBusArrival / 60) % 24;
+          const arrivalMin = nextBusArrival % 60;
+          arrivalTime = `${String(arrivalHour).padStart(2, '0')}:${String(arrivalMin).padStart(2, '0')}`;
+        }
+      }
+      return { 
+        name: station.name, 
+        duration: station.duration, 
+        arrivalTime, 
+        minutesAway: station.duration 
+      };
+    });
+
+    this.setData({ 
+      currentTime: timeStrNow, 
+      isOperating, 
+      interval, 
+      stations: updatedStations 
+    });
+  },
+
+  // 切换方向
+  switchDirection() {
+    const { line, direction } = this.data;
+    if (!line) return;
+    
+    const newDirection = direction === 'forward' ? 'backward' : 'forward';
+    
+    let newStations;
+    if (newDirection === 'backward') {
+      const totalDuration = parseInt(line.duration) || line.stations[line.stations.length - 1].duration;
+      const originalStations = JSON.parse(JSON.stringify(line.stations));
+      
+      const reversed = [...originalStations].reverse();
+      
+      newStations = reversed.map((s, idx) => {
+        if (idx === 0) return { name: s.name, duration: 0 };
+        const dur = totalDuration - originalStations[originalStations.length - idx - 1].duration;
+        return { name: s.name, duration: dur };
+      });
+    } else {
+      newStations = JSON.parse(JSON.stringify(line.stations));
+    }
+
+    this.setData({ 
+      direction: newDirection, 
+      stations: newStations 
+    });
+    
+    this.calculateTimes();
+  },
+
+  goBack() {
+    wx.navigateBack();
+  },
+
+  showStationDetail(e) {
+    const station = e.currentTarget.dataset.station;
+    const waitTime = station.arrivalTime 
+      ? `预计 ${station.duration} 分钟后到站` 
+      : '当前未运营';
+    wx.showModal({
+      title: station.name,
+      content: waitTime,
+      showCancel: false,
+      confirmText: '知道了',
+      success: () => {
+        // 可扩展：点击后执行的操作
+      }
+    });
+  },
+
+  onShareAppMessage() {
+    const { line, direction } = this.data;
+    if (!line) return {};
+    const route = direction === 'forward' 
+      ? `${line.start} - ${line.end}` 
+      : `${line.end} - ${line.start}`;
+    return { 
+      title: `${line.id} ${route}`, 
+      path: `/pages/detail/detail?id=${line.id}` 
+    };
   }
-})
+});

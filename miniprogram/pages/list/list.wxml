@@ -1,16 +1,25 @@
 <!--list.wxml-->
-<view class="container">
-  <view class="header">
-    <view class="title">线路列表</view>
+<view class="list-container">
+  <!-- 标签切换 -->
+  <view class="tab-bar">
+    <view class="tab-item {{activeTab === 'all' ? 'active' : ''}}" bindtap="switchTab" data-tab="all">全部</view>
+    <view class="tab-item {{activeTab === 'urban' ? 'active' : ''}}" bindtap="switchTab" data-tab="urban">城区</view>
+    <view class="tab-item {{activeTab === 'rural' ? 'active' : ''}}" bindtap="switchTab" data-tab="rural">城乡</view>
   </view>
-  
-  <view class="line-list">
-    <view class="line-item" wx:for="{{lines}}" wx:key="id" bindtap="goToDetail" data-id="{{item.id}}">
-      <view class="line-number">{{item.number}}</view>
-      <view class="line-info">
-        <view class="line-name">{{item.name}}</view>
-        <view class="line-time">首班 {{item.firstBus}} - 末班 {{item.lastBus}}</view>
+
+  <!-- 线路列表 -->
+  <scroll-view class="line-list" scroll-y="true">
+    <view class="line-item" wx:for="{{filteredLines}}" wx:key="id" bindtap="goToDetail" data-id="{{item.id}}">
+      <text class="item-num {{item.type === '城区' ? 'urban' : 'rural'}}">{{item.id}}</text>
+      <view class="item-info">
+        <text class="item-route">{{item.start}} - {{item.end}}</text>
+        <text class="item-time">{{item.time}} | {{item.interval}}</text>
       </view>
+      <text class="item-price">{{item.price}}</text>
     </view>
-  </view>
+    
+    <view class="empty-tip" wx:if="{{filteredLines.length === 0}}">
+      <text>暂无匹配的线路</text>
+    </view>
+  </scroll-view>
 </view>

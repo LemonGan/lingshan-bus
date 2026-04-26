@@ -1,45 +1,78 @@
-<!--index.wxml-->
 <view class="container">
-  <!-- 搜索框 -->
-  <view class="search-box">
-    <text class="search-icon">🔍</text>
-    <input class="search-input" placeholder="搜索线路或站点" placeholder-class="search-placeholder" bindinput="onSearchInput" />
-  </view>
-  
-  <!-- 热门线路 -->
-  <view class="section-header">
-    <text class="section-title">热门线路</text>
-    <view class="section-line"></view>
-  </view>
-  
-  <view class="line-grid">
-    <view class="line-card" wx:for="{{hotLines}}" wx:key="id" bindtap="goToDetail" data-id="{{item.id}}">
-      <view class="line-number-row">
-        <text class="line-number">{{item.number}}</text>
+  <!-- 内容区域 -->
+  <view class="content-wrap">
+    <!-- 搜索框 -->
+    <view class="search-box">
+      <text class="search-icon">🔍</text>
+      <input 
+        class="search-input" 
+        placeholder="搜索线路或站点" 
+        placeholder-class="search-placeholder"
+        bindinput="onSearchInput"
+        bindconfirm="onSearch"
+        confirm-type="search"
+      />
+    </view>
+    
+    <!-- 热门线路 -->
+    <view class="section-header">
+      <text class="section-title">热门线路</text>
+    </view>
+    
+    <view class="line-grid">
+      <view class="line-card" wx:for="{{hotLines}}" wx:key="id" bindtap="goToDetail" data-id="{{item.id}}">
+        <view class="line-number-row">
+          <text class="line-number {{item.type === '城区' ? 'urban' : 'rural'}}">{{item.id}}</text>
+        </view>
+        <text class="line-name">{{item.start}} - {{item.end}}</text>
+        <text class="line-time">{{item.time}} | {{item.price}}</text>
       </view>
-      <text class="line-name">{{item.name}}</text>
-      <text class="line-time">首班 {{item.firstBus}} - 末班 {{item.lastBus}}</text>
+    </view>
+    
+    <!-- 城区公交 -->
+    <view class="section-header">
+      <text class="section-title">城区公交</text>
+      <text class="more-btn" bindtap="goToList" data-type="城区">更多 ></text>
+    </view>
+    
+    <view class="line-list">
+      <view class="line-item" wx:for="{{urbanLines}}" wx:key="id" bindtap="goToDetail" data-id="{{item.id}}">
+        <text class="item-num {{item.type === '城区' ? 'urban' : 'rural'}}">{{item.id}}</text>
+        <view class="item-info">
+          <text class="item-route">{{item.start}} - {{item.end}}</text>
+          <text class="item-time">{{item.time}}</text>
+        </view>
+        <text class="item-price">{{item.price}}</text>
+      </view>
+    </view>
+    
+    <!-- 城乡公交 -->
+    <view class="section-header">
+      <text class="section-title">城乡公交</text>
+      <text class="more-btn" bindtap="goToList" data-type="城乡">更多 ></text>
+    </view>
+    
+    <view class="line-list">
+      <view class="line-item" wx:for="{{ruralLines}}" wx:key="id" bindtap="goToDetail" data-id="{{item.id}}">
+        <text class="item-num {{item.type === '城区' ? 'urban' : 'rural'}}">{{item.id}}</text>
+        <view class="item-info">
+          <text class="item-route">{{item.start}} - {{item.end}}</text>
+          <text class="item-time">{{item.time}}</text>
+        </view>
+        <text class="item-price">{{item.price}}</text>
+      </view>
     </view>
   </view>
   
-  <!-- 分类标签 -->
-  <view class="section-header" style="margin-top:40rpx;">
-    <text class="section-title">线路分类</text>
-    <view class="section-line"></view>
-  </view>
-  
-  <view class="category-list">
-    <view class="category-item" bindtap="goToList" data-type="城区">
-      <text class="category-name">城区公交</text>
-      <text class="category-desc">2元一票制</text>
+  <!-- 底部导航 -->
+  <view class="bottom-nav">
+    <view class="nav-item active">
+      <text class="nav-icon">🏠</text>
+      <text class="nav-text">首页</text>
     </view>
-    <view class="category-item" bindtap="goToList" data-type="城乡">
-      <text class="category-name">城乡公交</text>
-      <text class="category-desc">分段计费</text>
-    </view>
-    <view class="category-item" bindtap="goToList" data-type="跨县">
-      <text class="category-name">跨县公交</text>
-      <text class="category-desc">分段计费</text>
+    <view class="nav-item" bindtap="goToBus">
+      <text class="nav-icon">🚌</text>
+      <text class="nav-text">线路</text>
     </view>
   </view>
 </view>

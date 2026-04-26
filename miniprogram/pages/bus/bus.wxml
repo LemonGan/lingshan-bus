@@ -1,0 +1,60 @@
+<view class="bus-container">
+  <!-- 内容区域 -->
+  <view class="content-wrap">
+    <!-- 搜索框 -->
+    <view class="search-box">
+      <view class="search-input-wrap">
+        <text class="search-icon">🔍</text>
+        <input 
+          class="search-input" 
+          placeholder="搜索线路/站点/目的地" 
+          placeholder-class="search-placeholder"
+          bindinput="onSearch"
+          value="{{searchText}}"
+        />
+        <view class="search-clear" bindtap="onClear" wx:if="{{searchText}}">✕</view>
+      </view>
+    </view>
+
+    <!-- 标签切换 -->
+    <view class="tab-bar">
+      <view class="tab-item {{activeTab === 'all' ? 'active' : ''}}" bindtap="switchTab" data-tab="all">全部</view>
+      <view class="tab-item {{activeTab === 'urban' ? 'active' : ''}}" bindtap="switchTab" data-tab="urban">城区</view>
+      <view class="tab-item {{activeTab === 'rural' ? 'active' : ''}}" bindtap="switchTab" data-tab="rural">城乡</view>
+    </view>
+
+    <!-- 线路列表 -->
+    <scroll-view class="line-list" scroll-y="true">
+      <view class="line-card" wx:for="{{filteredLines}}" wx:key="id" bindtap="goDetail" data-line="{{item}}">
+        <view class="line-header">
+          <text class="line-id {{item.type === '城区' ? 'urban' : 'rural'}}">{{item.id}}</text>
+          <text class="line-price">{{item.price}}</text>
+        </view>
+        <view class="line-route">
+          <text class="station">{{item.start}}</text>
+          <view class="arrow-wrap">
+            <view class="arrow-line"></view>
+            <text class="duration">{{item.duration}}</text>
+          </view>
+          <text class="station">{{item.end}}</text>
+        </view>
+        <view class="line-info">
+          <text class="info-item">{{item.time}}</text>
+          <text class="info-item">{{item.interval}}</text>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+  
+  <!-- 底部导航 -->
+  <view class="bottom-nav">
+    <view class="nav-item" bindtap="goIndex">
+      <text class="nav-icon">🏠</text>
+      <text class="nav-text">首页</text>
+    </view>
+    <view class="nav-item active">
+      <text class="nav-icon">🚌</text>
+      <text class="nav-text">线路</text>
+    </view>
+  </view>
+</view>
