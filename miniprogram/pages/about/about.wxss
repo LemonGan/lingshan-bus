@@ -1,14 +1,14 @@
 /* about.wxss */
 page { background: #f5f7fa; min-height: 100vh; }
-.container { min-height: 100vh; padding: 24rpx; padding-bottom: 130rpx; }
+.container { padding: 24rpx; }
 
 .header { text-align: center; padding: 40rpx 0; }
 .app-name { font-size: 48rpx; font-weight: 700; color: #1677FF; }
 .version { font-size: 24rpx; color: #999; margin-left: 12rpx; }
 
-.section { background: #fff; border-radius: 16rpx; padding: 30rpx; margin-bottom: 20rpx; }
+.section { background: #fff; border-radius: 16rpx; padding: 30rpx; margin-bottom: 20rpx; box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.06); }
 .section-title { font-size: 30rpx; font-weight: 600; color: #333; margin-bottom: 20rpx; display: block; }
-.desc { font-size: 26rpx; color: #666; line-height: 1.6; }
+.desc { font-size: 26rpx; color: #666; line-height: 1.8; }
 
 .social-list { margin-top: 10rpx; }
 .social-item {
@@ -18,7 +18,7 @@ page { background: #f5f7fa; min-height: 100vh; }
 .social-item:last-child { border-bottom: none; }
 .social-icon { font-size: 40rpx; margin-right: 20rpx; }
 .social-info { flex: 1; }
-.social-platform { font-size: 26rpx; color: #999; display: block; }
+.social-platform { font-size: 24rpx; color: #999; display: block; }
 .social-name { font-size: 28rpx; color: #333; font-weight: 500; margin-top: 4rpx; }
 .copy-btn {
   font-size: 24rpx; color: #1677FF;
@@ -35,45 +35,5 @@ page { background: #f5f7fa; min-height: 100vh; }
 .contact-label { font-size: 26rpx; color: #333; }
 .contact-value { font-size: 26rpx; color: #1677FF; }
 
-.footer { text-align: center; padding: 30rpx 0; }
+.footer { text-align: center; padding: 30rpx 0; padding-bottom: 40rpx; }
 .footer-text { font-size: 22rpx; color: #ccc; }
-
-/* 悬浮返回按钮 */
-.back-btn {
-  position: fixed; left: 30rpx; bottom: 40rpx;
-  width: 100rpx; height: 100rpx;
-  background: #1677FF; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 4rpx 16rpx rgba(22,119,255,0.4);
-  z-index: 200;
-}
-.back-icon { font-size: 48rpx; }
-
-/* 悬浮返回按钮 */
-.back-btn {
-  position: fixed; left: 30rpx; bottom: 40rpx;
-  width: 100rpx; height: 100rpx;
-  background: #1677FF; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 4rpx 16rpx rgba(22,119,255,0.4);
-  z-index: 200;
-}
-.back-icon { font-size: 48rpx; }
-
-/* 底部导航 */
-.bottom-nav {
-  position: fixed; left: 0; right: 0; bottom: 0;
-  display: flex; background: #fff;
-  border-top: 1rpx solid #eee;
-  padding: 16rpx 0;
-  padding-bottom: calc(16rpx + env(safe-area-inset-bottom));
-  z-index: 100;
-}
-.nav-item {
-  flex: 1; display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  color: #999;
-}
-.nav-item.active { color: #1677FF; }
-.nav-icon { font-size: 40rpx; }
-.nav-text { font-size: 22rpx; margin-top: 4rpx; }

@@ -43,9 +43,4 @@
       <button class="action-btn secondary" bindtap="goAbout">关于我们</button>
     </view>
   </view>
-  
-  <!-- 悬浮返回按钮 -->
-  <view class="back-btn" bindtap="goHome">
-    <text class="back-icon">🏠</text>
-  </view>
 </view>

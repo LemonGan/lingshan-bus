@@ -40,9 +40,4 @@
   <view class="footer">
     <text class="footer-text">灵山人自己的公交工具 🚌</text>
   </view>
-  
-  <!-- 悬浮返回按钮 -->
-  <view class="back-btn" bindtap="goHome">
-    <text class="back-icon">🏠</text>
-  </view>
 </view>

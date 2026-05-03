@@ -60,6 +60,6 @@ Page({
   },
 
   goAbout() {
-    wx.navigateTo({ url: '/pages/about/about' });
+    wx.switchTab({ url: '/pages/about/about' });
   }
 });
