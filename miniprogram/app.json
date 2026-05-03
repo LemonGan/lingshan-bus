@@ -22,19 +22,19 @@
     "list": [
       {
         "pagePath": "pages/index/index",
-        "text": "🏠"
+        "text": "首页"
       },
       {
         "pagePath": "pages/bus/bus",
-        "text": "🚌"
+        "text": "线路"
       },
       {
         "pagePath": "pages/feedback/feedback",
-        "text": "💬"
+        "text": "留言"
       },
       {
         "pagePath": "pages/about/about",
-        "text": "ℹ"
+        "text": "关于"
       }
     ]
   },
