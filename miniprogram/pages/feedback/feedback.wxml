@@ -1,12 +1,13 @@
 <view class="container">
   <view class="header">
-    <text class="header-title">💬 留言反馈</text>
+    <text class="header-icon">💬</text>
+    <text class="header-title">留言反馈</text>
     <text class="header-desc">有什么建议或想法？欢迎告诉我！</text>
   </view>
 
   <view class="form" wx:if="{{!submitSuccess}}">
-    <view class="form-group">
-      <text class="form-label">留言内容 *</text>
+    <view class="form-card">
+      <text class="form-label">留言内容 <text class="required">*</text></text>
       <textarea 
         class="form-textarea" 
         placeholder="请输入您的建议、问题或想法..."
@@ -17,15 +18,15 @@
       <text class="form-count">{{content.length}}/500</text>
     </view>
     
-    <view class="form-group">
-      <text class="form-label">联系方式（选填）</text>
+    <view class="form-card">
+      <text class="form-label">联系方式</text>
+      <text class="form-hint">选填，方便我回复您</text>
       <input 
         class="form-input" 
         placeholder="微信号 / 手机号 / 小红书号"
         value="{{contact}}"
         bindinput="onContactInput"
       />
-      <text class="form-hint">方便我回复您的问题</text>
     </view>
     
     <button class="submit-btn" bindtap="submitFeedback" disabled="{{submitting}}">
