@@ -44,6 +44,17 @@ page { background: #f5f7fa; min-height: 100vh; }
 }
 .action-btn.secondary { background: #fff; color: #1677FF; border: 1rpx solid #1677FF; }
 
+/* 悬浮返回按钮 */
+.back-btn {
+  position: fixed; left: 30rpx; bottom: 40rpx;
+  width: 100rpx; height: 100rpx;
+  background: #1677FF; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4rpx 16rpx rgba(22,119,255,0.4);
+  z-index: 200;
+}
+.back-icon { font-size: 48rpx; }
+
 /* 底部导航 */
 .bottom-nav {
   position: fixed; left: 0; right: 0; bottom: 0;

@@ -43,20 +43,9 @@
       <button class="action-btn secondary" bindtap="goAbout">关于我们</button>
     </view>
   </view>
-
-  <!-- 底部导航 -->
-  <view class="bottom-nav">
-    <view class="nav-item" bindtap="goHome">
-      <text class="nav-icon">🏠</text>
-      <text class="nav-text">首页</text>
-    </view>
-    <view class="nav-item active">
-      <text class="nav-icon">💬</text>
-      <text class="nav-text">留言</text>
-    </view>
-    <view class="nav-item" bindtap="goAbout">
-      <text class="nav-icon">ℹ️</text>
-      <text class="nav-text">关于</text>
-    </view>
+  
+  <!-- 悬浮返回按钮 -->
+  <view class="back-btn" bindtap="goHome">
+    <text class="back-icon">🏠</text>
   </view>
 </view>

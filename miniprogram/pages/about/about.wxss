@@ -35,8 +35,30 @@ page { background: #f5f7fa; min-height: 100vh; }
 .contact-label { font-size: 26rpx; color: #333; }
 .contact-value { font-size: 26rpx; color: #1677FF; }
 
-.footer { text-align: center; padding: 30rpx 0 130rpx; }
+.footer { text-align: center; padding: 30rpx 0; }
 .footer-text { font-size: 22rpx; color: #ccc; }
+
+/* 悬浮返回按钮 */
+.back-btn {
+  position: fixed; left: 30rpx; bottom: 40rpx;
+  width: 100rpx; height: 100rpx;
+  background: #1677FF; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4rpx 16rpx rgba(22,119,255,0.4);
+  z-index: 200;
+}
+.back-icon { font-size: 48rpx; }
+
+/* 悬浮返回按钮 */
+.back-btn {
+  position: fixed; left: 30rpx; bottom: 40rpx;
+  width: 100rpx; height: 100rpx;
+  background: #1677FF; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4rpx 16rpx rgba(22,119,255,0.4);
+  z-index: 200;
+}
+.back-icon { font-size: 48rpx; }
 
 /* 底部导航 */
 .bottom-nav {

@@ -41,19 +41,8 @@
     <text class="footer-text">灵山人自己的公交工具 🚌</text>
   </view>
   
-  <!-- 底部导航 -->
-  <view class="bottom-nav">
-    <view class="nav-item" bindtap="goHome">
-      <text class="nav-icon">🏠</text>
-      <text class="nav-text">首页</text>
-    </view>
-    <view class="nav-item" bindtap="goBus">
-      <text class="nav-icon">🚌</text>
-      <text class="nav-text">线路</text>
-    </view>
-    <view class="nav-item active">
-      <text class="nav-icon">ℹ️</text>
-      <text class="nav-text">关于</text>
-    </view>
+  <!-- 悬浮返回按钮 -->
+  <view class="back-btn" bindtap="goHome">
+    <text class="back-icon">🏠</text>
   </view>
 </view>
