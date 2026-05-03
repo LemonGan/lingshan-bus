@@ -18,23 +18,33 @@
     "color": "#999999",
     "selectedColor": "#1677FF",
     "backgroundColor": "#ffffff",
-    "fontSize": "22rpx",
+    "fontSize": "28rpx",
+    "iconWidth": "48rpx",
+    "iconHeight": "48rpx",
     "list": [
       {
         "pagePath": "pages/index/index",
-        "text": "🏠首页"
+        "text": "首页",
+        "iconPath": "assets/home.png",
+        "selectedIconPath": "assets/home_active.png"
       },
       {
         "pagePath": "pages/bus/bus",
-        "text": "🚌线路"
+        "text": "线路",
+        "iconPath": "assets/bus.png",
+        "selectedIconPath": "assets/bus_active.png"
       },
       {
         "pagePath": "pages/feedback/feedback",
-        "text": "💬留言"
+        "text": "留言",
+        "iconPath": "assets/msg.png",
+        "selectedIconPath": "assets/msg_active.png"
       },
       {
         "pagePath": "pages/about/about",
-        "text": "ℹ️关于"
+        "text": "关于",
+        "iconPath": "assets/info.png",
+        "selectedIconPath": "assets/info_active.png"
       }
     ]
   },
