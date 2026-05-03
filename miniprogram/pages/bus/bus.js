@@ -13,14 +13,32 @@ Page({
 
   onLoad(options) {
     const type = options.type || 'all';
-    const keyword = options.keyword || '';
     this.setData({
       lines: busData.lines,
       filteredLines: busData.lines,
       activeTab: type,
-      searchText: keyword ? decodeURIComponent(keyword) : ''
+      searchText: options.keyword ? decodeURIComponent(options.keyword) : ''
     });
     this.filterLines();
+  },
+
+  onShow() {
+    // 接收来自首页的全局参数
+    if (typeof getApp !== 'undefined') {
+      var app = getApp();
+      if (app.globalData && app.globalData.busSearchKeyword) {
+        var kw = app.globalData.busSearchKeyword;
+        app.globalData.busSearchKeyword = '';
+        this.setData({ searchText: kw, activeTab: 'all' });
+        this.filterLines();
+      }
+      if (app.globalData && app.globalData.busFilterType) {
+        var ft = app.globalData.busFilterType;
+        app.globalData.busFilterType = '';
+        this.setData({ activeTab: ft });
+        this.filterLines();
+      }
+    }
   },
 
   onSearch(e) {

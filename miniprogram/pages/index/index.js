@@ -29,7 +29,12 @@ Page({
     }
     this.data.searchTimer = setTimeout(() => {
       if (value.trim()) {
-        wx.navigateTo({ url: '/pages/bus/bus?keyword=' + encodeURIComponent(value) });
+        // Tab页传参，用全局变量
+        var app = getApp();
+        if (app.globalData) {
+          app.globalData.busSearchKeyword = value.trim();
+        }
+        wx.switchTab({ url: '/pages/bus/bus' });
       }
     }, 300);
   },
@@ -37,7 +42,11 @@ Page({
   onSearch(e) {
     const value = e.detail.value || this.data.searchText;
     if (value.trim()) {
-      wx.navigateTo({ url: '/pages/bus/bus?keyword=' + encodeURIComponent(value) });
+      var app = getApp();
+      if (app.globalData) {
+        app.globalData.busSearchKeyword = value.trim();
+      }
+      wx.switchTab({ url: '/pages/bus/bus' });
     }
   },
 
@@ -48,7 +57,11 @@ Page({
 
   goToList(e) {
     const type = e.currentTarget.dataset.type;
-    wx.navigateTo({ url: '/pages/bus/bus?type=' + (type === '城区' ? 'urban' : 'rural') });
+    var app = getApp();
+    if (app.globalData) {
+      app.globalData.busFilterType = type === '城区' ? 'urban' : 'rural';
+    }
+    wx.switchTab({ url: '/pages/bus/bus' });
   },
 
   goToBus() {
