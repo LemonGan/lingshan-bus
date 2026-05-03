@@ -1,0 +1,59 @@
+<view class="container">
+  <view class="header">
+    <text class="app-name">{{appName}}</text>
+    <text class="version">v{{version}}</text>
+  </view>
+  
+  <view class="section">
+    <text class="desc">{{desc}}</text>
+  </view>
+  
+  <view class="section">
+    <text class="section-title">📢 关注我</text>
+    <view class="social-list">
+      <view class="social-item" wx:for="{{social}}" wx:key="index">
+        <text class="social-icon">{{item.icon}}</text>
+        <view class="social-info">
+          <text class="social-platform">{{item.platform}}</text>
+          <text class="social-name">{{item.name}}</text>
+        </view>
+        <text class="copy-btn" bindtap="copyAccount" data-text="{{item.name}}">复制</text>
+      </view>
+    </view>
+  </view>
+  
+  <view class="section">
+    <text class="section-title">📧 联系合作</text>
+    <view class="contact-box">
+      <text class="contact-text">{{contact}}</text>
+      <view class="contact-item">
+        <text class="contact-label">📩 小红书/抖音</text>
+        <text class="contact-value">私信留言</text>
+      </view>
+      <view class="contact-item">
+        <text class="contact-label">🤝 商务合作</text>
+        <text class="contact-value">私信详谈</text>
+      </view>
+    </view>
+  </view>
+  
+  <view class="footer">
+    <text class="footer-text">灵山人自己的公交工具 🚌</text>
+  </view>
+  
+  <!-- 底部导航 -->
+  <view class="bottom-nav">
+    <view class="nav-item" bindtap="goHome">
+      <text class="nav-icon">🏠</text>
+      <text class="nav-text">首页</text>
+    </view>
+    <view class="nav-item" bindtap="goBus">
+      <text class="nav-icon">🚌</text>
+      <text class="nav-text">线路</text>
+    </view>
+    <view class="nav-item active">
+      <text class="nav-icon">ℹ️</text>
+      <text class="nav-text">关于</text>
+    </view>
+  </view>
+</view>

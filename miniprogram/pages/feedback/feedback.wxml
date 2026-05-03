@@ -1,0 +1,62 @@
+<view class="container">
+  <view class="header">
+    <text class="header-title">💬 留言反馈</text>
+    <text class="header-desc">有什么建议或想法？欢迎告诉我！</text>
+  </view>
+
+  <view class="form" wx:if="{{!submitSuccess}}">
+    <view class="form-group">
+      <text class="form-label">留言内容 *</text>
+      <textarea 
+        class="form-textarea" 
+        placeholder="请输入您的建议、问题或想法..."
+        value="{{content}}"
+        bindinput="onContentInput"
+        maxlength="500"
+      />
+      <text class="form-count">{{content.length}}/500</text>
+    </view>
+    
+    <view class="form-group">
+      <text class="form-label">联系方式（选填）</text>
+      <input 
+        class="form-input" 
+        placeholder="微信号 / 手机号 / 小红书号"
+        value="{{contact}}"
+        bindinput="onContactInput"
+      />
+      <text class="form-hint">方便我回复您的问题</text>
+    </view>
+    
+    <button class="submit-btn" bindtap="submitFeedback" disabled="{{submitting}}">
+      <text wx:if="{{!submitting}}">提交反馈</text>
+      <text wx:if="{{submitting}}">提交中...</text>
+    </button>
+  </view>
+
+  <view class="success-box" wx:if="{{submitSuccess}}">
+    <text class="success-icon">✅</text>
+    <text class="success-text">感谢您的反馈！</text>
+    <text class="success-desc">我会认真阅读每一条留言</text>
+    <view class="success-actions">
+      <button class="action-btn" bindtap="goHome">返回首页</button>
+      <button class="action-btn secondary" bindtap="goAbout">关于我们</button>
+    </view>
+  </view>
+
+  <!-- 底部导航 -->
+  <view class="bottom-nav">
+    <view class="nav-item" bindtap="goHome">
+      <text class="nav-icon">🏠</text>
+      <text class="nav-text">首页</text>
+    </view>
+    <view class="nav-item active">
+      <text class="nav-icon">💬</text>
+      <text class="nav-text">留言</text>
+    </view>
+    <view class="nav-item" bindtap="goAbout">
+      <text class="nav-icon">ℹ️</text>
+      <text class="nav-text">关于</text>
+    </view>
+  </view>
+</view>

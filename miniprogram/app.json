@@ -3,7 +3,9 @@
     "pages/index/index",
     "pages/bus/bus",
     "pages/list/list",
-    "pages/detail/detail"
+    "pages/detail/detail",
+    "pages/about/about",
+    "pages/feedback/feedback"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -11,5 +13,6 @@
     "navigationBarTitleText": "灵山公交",
     "navigationBarTextStyle": "white"
   },
+  "lazyCodeLoading": "requiredComponents",
   "sitemapLocation": "sitemap.json"
 }
