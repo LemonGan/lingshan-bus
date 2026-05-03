@@ -21,9 +21,5 @@ Page({
 
   goHome: function() {
     wx.switchTab({ url: '/pages/index/index' });
-  },
-
-  goBus: function() {
-    wx.navigateTo({ url: '/pages/bus/bus' });
   }
 });

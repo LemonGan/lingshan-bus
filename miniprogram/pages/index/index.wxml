@@ -63,24 +63,4 @@
       </view>
     </view>
   </view>
-  
-  <!-- 底部导航 -->
-  <view class="bottom-nav">
-    <view class="nav-item active">
-      <text class="nav-icon">🏠</text>
-      <text class="nav-text">首页</text>
-    </view>
-    <view class="nav-item" bindtap="goToBus">
-      <text class="nav-icon">🚌</text>
-      <text class="nav-text">线路</text>
-    </view>
-    <view class="nav-item" bindtap="goToFeedback">
-      <text class="nav-icon">💬</text>
-      <text class="nav-text">留言</text>
-    </view>
-    <view class="nav-item" bindtap="goToAbout">
-      <text class="nav-icon">ℹ️</text>
-      <text class="nav-text">关于</text>
-    </view>
-  </view>
 </view>

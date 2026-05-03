@@ -52,14 +52,6 @@ Page({
   },
 
   goToBus() {
-    wx.navigateTo({ url: '/pages/bus/bus' });
-  },
-
-  goToFeedback() {
-    wx.navigateTo({ url: '/pages/feedback/feedback' });
-  },
-
-  goToAbout() {
-    wx.navigateTo({ url: '/pages/about/about' });
+    wx.switchTab({ url: '/pages/bus/bus' });
   }
 });

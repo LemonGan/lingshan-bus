@@ -14,5 +14,38 @@
     "navigationBarTextStyle": "white"
   },
   "lazyCodeLoading": "requiredComponents",
+  "tabBar": {
+    "custom": true,
+    "color": "#999",
+    "selectedColor": "#1677FF",
+    "backgroundColor": "#fff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "assets/home.png",
+        "selectedIconPath": "assets/home_active.png"
+      },
+      {
+        "pagePath": "pages/bus/bus",
+        "text": "线路",
+        "iconPath": "assets/bus.png",
+        "selectedIconPath": "assets/bus_active.png"
+      },
+      {
+        "pagePath": "pages/feedback/feedback",
+        "text": "留言",
+        "iconPath": "assets/msg.png",
+        "selectedIconPath": "assets/msg_active.png"
+      },
+      {
+        "pagePath": "pages/about/about",
+        "text": "关于",
+        "iconPath": "assets/info.png",
+        "selectedIconPath": "assets/info_active.png"
+      }
+    ]
+  },
   "sitemapLocation": "sitemap.json"
 }

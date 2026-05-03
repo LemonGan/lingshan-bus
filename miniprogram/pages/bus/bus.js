@@ -76,14 +76,6 @@ Page({
   },
 
   goIndex() {
-    wx.navigateTo({ url: '/pages/index/index' });
-  },
-
-  goToFeedback() {
-    wx.navigateTo({ url: '/pages/feedback/feedback' });
-  },
-
-  goToAbout() {
-    wx.navigateTo({ url: '/pages/about/about' });
+    wx.switchTab({ url: '/pages/index/index' });
   }
 });
