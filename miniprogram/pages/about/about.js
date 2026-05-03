@@ -17,5 +17,13 @@ Page({
         wx.showToast({ title: '已复制', icon: 'success' });
       }
     });
+  },
+
+  goHome: function() {
+    wx.switchTab({ url: '/pages/index/index' });
+  },
+
+  goBus: function() {
+    wx.navigateTo({ url: '/pages/bus/bus' });
   }
 });

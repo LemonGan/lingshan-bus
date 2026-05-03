@@ -1,8 +1,3 @@
-Page({
-  goHome() {
-    wx.switchTab({ url: '/pages/index/index' });
-  },
-  goBus() {
-    wx.navigateTo({ url: '/pages/bus/bus' });
-  }
-});
+{
+  "navigationBarTitleText": "关于"
+}
