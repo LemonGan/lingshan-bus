@@ -20,10 +20,10 @@
     
     <view class="form-card">
       <text class="form-label">联系方式</text>
-      <text class="form-hint">选填，方便我回复您</text>
+      <text class="form-hint">（选填）方便我回复您</text>
       <input 
         class="form-input" 
-        placeholder="微信号 / 手机号 / 小红书号"
+        placeholder="微信号 / 手机号"
         value="{{contact}}"
         bindinput="onContactInput"
       />
