@@ -7,6 +7,6 @@ const DEV = 'http://localhost:8882';
 const PROD = 'http://8.138.129.142:8882';
 
 module.exports = {
-  BASE_URL: DEV,
+  BASE_URL: PROD,
   REQUEST_TIMEOUT: 10000
 };
