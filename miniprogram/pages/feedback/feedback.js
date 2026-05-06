@@ -1,3 +1,5 @@
+const api = require('../../utils/config');
+
 Page({
   data: {
     content: '',
@@ -15,8 +17,8 @@ Page({
   },
 
   submitFeedback() {
-    var content = this.data.content.trim();
-    var contact = this.data.contact.trim();
+    const content = this.data.content.trim();
+    const contact = this.data.contact.trim();
 
     if (!content) {
       wx.showToast({ title: '请输入留言内容', icon: 'none' });
@@ -26,33 +28,40 @@ Page({
     this.setData({ submitting: true });
 
     wx.request({
-      url: 'http://8.138.129.142:8882/api/feedback',
+      url: api.BASE_URL + '/api/feedback',
       method: 'POST',
       header: { 'content-type': 'application/json' },
+      timeout: api.REQUEST_TIMEOUT,
       data: {
         content: content,
         contact: contact,
         source: 'lingshan-bus'
       },
       success: (res) => {
-        if (res.data && res.data.ok) {
+        if (res.statusCode === 200 && res.data && res.data.ok) {
           this.setData({
             content: '',
             contact: '',
             submitSuccess: true,
             submitting: false
           });
-          wx.showToast({ title: '提交成功 🎉', icon: 'success' });
+          wx.showToast({ title: '提交成功', icon: 'success' });
         } else {
-          wx.showToast({ title: '提交失败，请重试', icon: 'none' });
+          const msg = (res.data && res.data.message) || '提交失败，请重试';
+          wx.showToast({ title: msg, icon: 'none' });
           this.setData({ submitting: false });
         }
       },
-      fail: () => {
+      fail: (err) => {
+        console.error('Feedback submit failed:', err);
         wx.showToast({ title: '网络错误，请稍后重试', icon: 'none' });
         this.setData({ submitting: false });
       }
     });
+  },
+
+  writeMore() {
+    this.setData({ submitSuccess: false });
   },
 
   goHome() {

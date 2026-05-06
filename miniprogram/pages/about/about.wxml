@@ -22,20 +22,7 @@
     </view>
   </view>
   
-  <view class="section">
-    <text class="section-title">📧 联系合作</text>
-    <view class="contact-box">
-      <text class="contact-text">{{contact}}</text>
-      <view class="contact-item">
-        <text class="contact-label">📩 小红书/抖音</text>
-        <text class="contact-value">私信留言</text>
-      </view>
-      <view class="contact-item">
-        <text class="contact-label">🤝 商务合作</text>
-        <text class="contact-value">私信详谈</text>
-      </view>
-    </view>
-  </view>
+
   
   <view class="footer">
     <text class="footer-text">灵山人自己的公交工具 🚌</text>

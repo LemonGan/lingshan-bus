@@ -7,7 +7,7 @@ Page({
       { platform: '小红书', name: 'LemonCode｜程序员的日常', icon: '📕' },
       { platform: '抖音', name: 'LemonCode', icon: '🎵' },
     ],
-    contact: '有开发需求或合作意向，欢迎通过以下方式联系：'
+
   },
   copyAccount: function(e) {
     var text = e.currentTarget.dataset.text;

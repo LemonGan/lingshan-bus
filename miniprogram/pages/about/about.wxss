@@ -26,14 +26,5 @@ page { background: #f5f7fa; min-height: 100vh; }
   padding: 8rpx 24rpx;
 }
 
-.contact-box { margin-top: 10rpx; }
-.contact-text { font-size: 26rpx; color: #666; display: block; margin-bottom: 16rpx; }
-.contact-item {
-  display: flex; justify-content: space-between;
-  padding: 16rpx 0; border-bottom: 1rpx solid #f5f5f5;
-}
-.contact-label { font-size: 26rpx; color: #333; }
-.contact-value { font-size: 26rpx; color: #1677FF; }
-
 .footer { text-align: center; padding: 30rpx 0; padding-bottom: 40rpx; }
 .footer-text { font-size: 22rpx; color: #ccc; }

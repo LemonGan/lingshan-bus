@@ -18,23 +18,31 @@
     "color": "#999999",
     "selectedColor": "#1677FF",
     "backgroundColor": "#ffffff",
-    "fontSize": "18px",
+    "borderStyle": "white",
     "list": [
       {
         "pagePath": "pages/index/index",
-        "text": "首页"
+        "text": "首页",
+        "iconPath": "images/icon_home.png",
+        "selectedIconPath": "images/icon_home_active.png"
       },
       {
         "pagePath": "pages/bus/bus",
-        "text": "线路"
+        "text": "线路",
+        "iconPath": "images/icon_route.png",
+        "selectedIconPath": "images/icon_route_active.png"
       },
       {
         "pagePath": "pages/feedback/feedback",
-        "text": "留言"
+        "text": "留言",
+        "iconPath": "images/icon_message.png",
+        "selectedIconPath": "images/icon_message_active.png"
       },
       {
         "pagePath": "pages/about/about",
-        "text": "关于"
+        "text": "关于",
+        "iconPath": "images/icon_about.png",
+        "selectedIconPath": "images/icon_about_active.png"
       }
     ]
   },

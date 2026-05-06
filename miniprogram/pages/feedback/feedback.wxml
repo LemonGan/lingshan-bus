@@ -40,8 +40,8 @@
     <text class="success-text">感谢您的反馈！</text>
     <text class="success-desc">我会认真阅读每一条留言</text>
     <view class="success-actions">
-      <button class="action-btn" bindtap="goHome">返回首页</button>
-      <button class="action-btn secondary" bindtap="goAbout">关于我们</button>
+      <button class="action-btn" bindtap="writeMore">再写一条</button>
+      <button class="action-btn secondary" bindtap="goHome">返回首页</button>
     </view>
   </view>
 </view>
