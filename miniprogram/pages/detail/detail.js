@@ -8,18 +8,19 @@ Page({
     stations: [],
     currentTime: '',
     isOperating: false,
-    interval: 15,
-    displayTime: ''  // 显示的首末班时间
+    displayTime: '',
+    nextBusHint: '',
+    listFading: false,
+    stationPopup: null
   },
 
   onLoad(options) {
     const lineId = options.id;
     const line = busData.lines.find(l => l.id === lineId);
     if (line) {
-      const stations = JSON.parse(JSON.stringify(line.stations));
       this.setData({ 
         line: JSON.parse(JSON.stringify(line)),
-        stations: stations,
+        stations: JSON.parse(JSON.stringify(line.stations)),
         direction: 'forward',
         displayTime: line.time
       });
@@ -40,7 +41,6 @@ Page({
     const minutes = now.getMinutes();
     const currentMinutes = hours * 60 + minutes;
 
-    // 根据方向选择对应的时间
     const timeStr = direction === 'forward' ? line.time : (line.timeBackward || line.time);
     this.setData({ displayTime: timeStr });
 
@@ -57,20 +57,32 @@ Page({
     const isOperating = currentMinutes >= startMinutes && currentMinutes <= endMinutes;
     const timeStrNow = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
 
-    // 计算下一趟车从当前方向起点发车的时间
+    // 下一趟车从起点发车时间
     let firstDeparture = startMinutes;
     if (currentMinutes > startMinutes) {
       const passedIntervals = Math.floor((currentMinutes - startMinutes) / interval);
       firstDeparture = startMinutes + (passedIntervals + 1) * interval;
     }
 
+    let nextBusHint = '';
+    if (isOperating) {
+      const waitMin = firstDeparture - currentMinutes;
+      if (waitMin <= 0) {
+        nextBusHint = '正在发车中';
+      } else if (waitMin < interval) {
+        nextBusHint = `下一班约 ${waitMin} 分钟后发车`;
+      } else {
+        const nextHour = Math.floor(firstDeparture / 60) % 24;
+        const nextMin = firstDeparture % 60;
+        nextBusHint = `下一班发车时间 ${String(nextHour).padStart(2,'0')}:${String(nextMin).padStart(2,'0')}`;
+      }
+    }
+
     const updatedStations = stations.map((station) => {
       let arrivalTime = null;
       if (isOperating) {
-        // 跨天处理
         const minutesInDay = 24 * 60;
         const nextBusArrival = (firstDeparture + station.duration) % minutesInDay;
-        
         if (nextBusArrival <= endMinutes + totalDuration) {
           const arrivalHour = Math.floor(nextBusArrival / 60) % 24;
           const arrivalMin = nextBusArrival % 60;
@@ -80,16 +92,15 @@ Page({
       return { 
         name: station.name, 
         duration: station.duration, 
-        arrivalTime, 
-        minutesAway: station.duration 
+        arrivalTime
       };
     });
 
     this.setData({ 
       currentTime: timeStrNow, 
       isOperating, 
-      interval, 
-      stations: updatedStations 
+      stations: updatedStations,
+      nextBusHint
     });
   },
 
@@ -99,14 +110,12 @@ Page({
     if (!line) return;
     
     const newDirection = direction === 'forward' ? 'backward' : 'forward';
-    
     let newStations;
+
     if (newDirection === 'backward') {
       const totalDuration = parseInt(line.duration) || line.stations[line.stations.length - 1].duration;
       const originalStations = JSON.parse(JSON.stringify(line.stations));
-      
       const reversed = [...originalStations].reverse();
-      
       newStations = reversed.map((s, idx) => {
         if (idx === 0) return { name: s.name, duration: 0 };
         const dur = totalDuration - originalStations[originalStations.length - idx - 1].duration;
@@ -116,12 +125,17 @@ Page({
       newStations = JSON.parse(JSON.stringify(line.stations));
     }
 
-    this.setData({ 
-      direction: newDirection, 
-      stations: newStations 
-    });
-    
-    this.calculateTimes();
+    // 先淡出
+    this.setData({ listFading: true });
+    var _this = this;
+    setTimeout(function() {
+      _this.setData({ direction: newDirection, stations: newStations });
+      _this.calculateTimes();
+      // 淡入
+      setTimeout(function() {
+        _this.setData({ listFading: false });
+      }, 50);
+    }, 200);
   },
 
   goBack() {
@@ -130,18 +144,11 @@ Page({
 
   showStationDetail(e) {
     const station = e.currentTarget.dataset.station;
-    const waitTime = station.arrivalTime 
-      ? `预计 ${station.duration} 分钟后到站` 
-      : '当前未运营';
-    wx.showModal({
-      title: station.name,
-      content: waitTime,
-      showCancel: false,
-      confirmText: '知道了',
-      success: () => {
-        // 可扩展：点击后执行的操作
-      }
-    });
+    this.setData({ stationPopup: station });
+  },
+
+  closeStationPopup() {
+    this.setData({ stationPopup: null });
   },
 
   onShareAppMessage() {

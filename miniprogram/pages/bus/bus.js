@@ -7,8 +7,7 @@ Page({
     activeTab: 'all',
     lines: [],
     filteredLines: [],
-    searchTimer: null,
-    loading: false
+    searchTimer: null
   },
 
   onLoad(options) {
@@ -16,14 +15,12 @@ Page({
     this.setData({
       lines: busData.lines,
       filteredLines: busData.lines,
-      activeTab: type,
-      searchText: options.keyword ? decodeURIComponent(options.keyword) : ''
+      activeTab: type
     });
     this.filterLines();
   },
 
   onShow() {
-    // 接收来自首页的全局参数
     if (typeof getApp !== 'undefined') {
       var app = getApp();
       if (app.globalData && app.globalData.busSearchKeyword) {
@@ -44,13 +41,8 @@ Page({
   onSearch(e) {
     const value = e.detail.value.trim();
     this.setData({ searchText: value });
-    // 防抖：300ms后执行搜索
-    if (this.data.searchTimer) {
-      clearTimeout(this.data.searchTimer);
-    }
-    this.data.searchTimer = setTimeout(() => {
-      this.filterLines();
-    }, 300);
+    if (this.data.searchTimer) clearTimeout(this.data.searchTimer);
+    this.data.searchTimer = setTimeout(() => { this.filterLines(); }, 300);
   },
 
   onClear() {
@@ -60,8 +52,12 @@ Page({
 
   switchTab(e) {
     const tab = e.currentTarget.dataset.tab;
-    this.setData({ activeTab: tab });
-    this.filterLines();
+    // 先清空列表（卸载 DOM），再设新数据触发入场动画重播
+    this.setData({ activeTab: tab, filteredLines: [] });
+    var _this = this;
+    setTimeout(function() {
+      _this.filterLines();
+    }, 50);
   },
 
   filterLines() {
@@ -88,9 +84,7 @@ Page({
 
   goDetail(e) {
     const line = e.currentTarget.dataset.line;
-    wx.navigateTo({
-      url: `/pages/detail/detail?id=${line.id}`
-    });
+    wx.navigateTo({ url: `/pages/detail/detail?id=${line.id}` });
   },
 
   goIndex() {

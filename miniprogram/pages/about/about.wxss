@@ -1,14 +1,29 @@
 /* about.wxss */
-page { background: #f5f7fa; min-height: 100vh; }
 .container { padding: 24rpx; }
 
-.header { text-align: center; padding: 40rpx 0; }
-.app-name { font-size: 48rpx; font-weight: 700; color: #1677FF; }
-.version { font-size: 24rpx; color: #999; margin-left: 12rpx; }
+.header { text-align: center; padding: 50rpx 0 30rpx; }
+.app-name {
+  font-size: 48rpx; font-weight: 700; color: var(--color-primary);
+  letter-spacing: 4rpx;
+}
+.version {
+  font-size: var(--font-sm); color: var(--color-text-hint);
+  background: var(--color-primary-light); padding: 4rpx 16rpx;
+  border-radius: 20rpx; margin-left: 12rpx;
+}
 
-.section { background: #fff; border-radius: 16rpx; padding: 30rpx; margin-bottom: 20rpx; box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.06); }
-.section-title { font-size: 30rpx; font-weight: 600; color: #333; margin-bottom: 20rpx; display: block; }
-.desc { font-size: 26rpx; color: #666; line-height: 1.8; }
+.section {
+  background: var(--color-card); border-radius: var(--radius-md);
+  padding: 30rpx; margin-bottom: 20rpx; box-shadow: var(--shadow-sm);
+}
+.section-title {
+  font-size: var(--font-lg); font-weight: 600;
+  color: var(--color-text-primary); margin-bottom: 20rpx; display: block;
+}
+.desc {
+  font-size: var(--font-md); color: var(--color-text-secondary);
+  line-height: 1.8;
+}
 
 .social-list { margin-top: 10rpx; }
 .social-item {
@@ -16,15 +31,15 @@ page { background: #f5f7fa; min-height: 100vh; }
   padding: 20rpx 0; border-bottom: 1rpx solid #f0f0f0;
 }
 .social-item:last-child { border-bottom: none; }
-.social-icon { font-size: 40rpx; margin-right: 20rpx; }
+.social-icon { font-size: 44rpx; margin-right: 20rpx; }
 .social-info { flex: 1; }
-.social-platform { font-size: 24rpx; color: #999; display: block; }
-.social-name { font-size: 28rpx; color: #333; font-weight: 500; margin-top: 4rpx; }
+.social-platform { font-size: var(--font-sm); color: var(--color-text-hint); display: block; }
+.social-name { font-size: var(--font-md); color: var(--color-text-primary); font-weight: 500; margin-top: 4rpx; }
 .copy-btn {
-  font-size: 24rpx; color: #1677FF;
-  border: 1rpx solid #1677FF; border-radius: 30rpx;
-  padding: 8rpx 24rpx;
+  font-size: var(--font-sm); color: var(--color-primary);
+  border: 1rpx solid var(--color-primary); border-radius: 30rpx;
+  padding: 8rpx 24rpx; background: transparent;
 }
 
-.footer { text-align: center; padding: 30rpx 0; padding-bottom: 40rpx; }
-.footer-text { font-size: 22rpx; color: #ccc; }
+.footer { text-align: center; padding: 30rpx 0 40rpx; }
+.footer-text { font-size: var(--font-xs); color: #ccc; }

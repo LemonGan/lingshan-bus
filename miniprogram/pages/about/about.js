@@ -4,7 +4,7 @@ Page({
     version: '1.0.0',
     desc: '灵山本地公交查询工具，收录城区+城乡16条公交线路，实时查看站点到站时间。',
     social: [
-      { platform: '小红书', name: 'LemonCode｜程序员的日常', icon: '📕' },
+      { platform: '小红书', name: 'LemonCode', icon: '📕' },
       { platform: '抖音', name: 'LemonCode', icon: '🎵' },
     ],
 

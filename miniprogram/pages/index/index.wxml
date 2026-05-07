@@ -1,66 +1,147 @@
+<!--pages/index/index.wxml-->
 <view class="container">
   <!-- 内容区域 -->
-  <view class="content-wrap">
-    <!-- 搜索框 -->
-    <view class="search-box">
-      <text class="search-icon">🔍</text>
-      <input 
-        class="search-input" 
-        placeholder="搜索线路或站点" 
-        placeholder-class="search-placeholder"
-        bindinput="onSearchInput"
-        bindconfirm="onSearch"
-        confirm-type="search"
-      />
+  <scroll-view class="content-wrap" scroll-y="true" enhanced show-scrollbar="{{false}}">
+
+    <!-- Hero 区域 -->
+    <view class="hero-section">
+      <view class="hero-bg"></view>
+      <view class="hero-content">
+        <text class="hero-title">🚌 灵山公交</text>
+        <text class="hero-subtitle">查线路 · 看到站 · 省时间</text>
+        <!-- 搜索框 -->
+        <view class="hero-search" catchtap="focusSearch">
+          <text class="search-icon">🔍</text>
+          <input 
+            class="search-input" 
+            placeholder="搜线路、站点、目的地..." 
+            placeholder-class="search-placeholder"
+            bindinput="onSearchInput"
+            bindconfirm="onSearch"
+            confirm-type="search"
+            focus="{{searchFocus}}"
+            bindblur="onSearchBlur"
+          />
+        </view>
+      </view>
     </view>
-    
+
+    <!-- 快速入口 -->
+    <view class="quick-actions">
+      <view class="action-item" bindtap="goToList" data-type="城区">
+        <view class="action-icon action-urban">🏙️</view>
+        <text class="action-label">城区公交</text>
+      </view>
+      <view class="action-item" bindtap="goToList" data-type="城乡">
+        <view class="action-icon action-rural">🏞️</view>
+        <text class="action-label">城乡公交</text>
+      </view>
+      <view class="action-item" bindtap="goToBus">
+        <view class="action-icon action-all">🗺️</view>
+        <text class="action-label">全部线路</text>
+      </view>
+    </view>
+
     <!-- 热门线路 -->
-    <view class="section-header">
-      <text class="section-title">热门线路</text>
-    </view>
-    
-    <view class="line-grid">
-      <view class="line-card" wx:for="{{hotLines}}" wx:key="id" bindtap="goToDetail" data-id="{{item.id}}">
-        <view class="line-number-row">
-          <text class="line-number {{item.type === '城区' ? 'urban' : 'rural'}}">{{item.id}}</text>
+    <view class="section">
+      <view class="section-header">
+        <view class="section-title-group">
+          <text class="section-dot"></text>
+          <text class="section-title">🔥 热门线路</text>
         </view>
-        <text class="line-name">{{item.start}} - {{item.end}}</text>
-        <text class="line-time">{{item.time}} | {{item.price}}</text>
+      </view>
+      <view class="line-grid">
+        <view 
+          class="line-card card-animate" 
+          style="animation-delay: {{index * 0.08}}s"
+          wx:for="{{hotLines}}" 
+          wx:key="id" 
+          bindtap="goToDetail" 
+          data-id="{{item.id}}"
+        >
+          <view class="card-badge {{item.type === '城区' ? 'badge-urban' : 'badge-rural'}}">{{item.type}}</view>
+          <view class="card-id-row">
+            <text class="line-number {{item.type === '城区' ? 'urban' : 'rural'}}">{{item.id}}</text>
+            <text class="card-price">{{item.price}}</text>
+          </view>
+          <view class="card-route">
+            <text class="route-from">{{item.start}}</text>
+            <view class="route-arrow">→</view>
+            <text class="route-to">{{item.end}}</text>
+          </view>
+          <view class="card-meta">
+            <text class="meta-item">⏰ {{item.time}}</text>
+            <text class="meta-item">🔄 {{item.interval}}</text>
+          </view>
+        </view>
       </view>
     </view>
-    
-    <!-- 城区公交 -->
-    <view class="section-header">
-      <text class="section-title">城区公交</text>
-      <text class="more-btn" bindtap="goToList" data-type="城区">更多 ></text>
-    </view>
-    
-    <view class="line-list">
-      <view class="line-item" wx:for="{{urbanLines}}" wx:key="id" bindtap="goToDetail" data-id="{{item.id}}">
-        <text class="item-num {{item.type === '城区' ? 'urban' : 'rural'}}">{{item.id}}</text>
-        <view class="item-info">
-          <text class="item-route">{{item.start}} - {{item.end}}</text>
-          <text class="item-time">{{item.time}}</text>
+
+    <!-- 城区线路 -->
+    <view class="section">
+      <view class="section-header">
+        <view class="section-title-group">
+          <text class="section-dot urban-dot"></text>
+          <text class="section-title">城区公交</text>
         </view>
-        <text class="item-price">{{item.price}}</text>
+        <text class="more-btn" bindtap="goToList" data-type="城区">查看全部 ›</text>
+      </view>
+      <view class="line-list-wrapper">
+        <view 
+          class="line-list-item card-animate" 
+          style="animation-delay: {{index * 0.06}}s"
+          wx:for="{{urbanLines}}" 
+          wx:key="id" 
+          bindtap="goToDetail" 
+          data-id="{{item.id}}"
+        >
+          <view class="ll-left">
+            <text class="ll-num urban">{{item.id}}</text>
+            <view class="ll-route">
+              <text class="ll-route-text">{{item.start}} → {{item.end}}</text>
+              <text class="ll-meta">{{item.time}} · {{item.interval}}</text>
+            </view>
+          </view>
+          <view class="ll-right">
+            <text class="price-tag">{{item.price}}</text>
+          </view>
+        </view>
       </view>
     </view>
-    
-    <!-- 城乡公交 -->
-    <view class="section-header">
-      <text class="section-title">城乡公交</text>
-      <text class="more-btn" bindtap="goToList" data-type="城乡">更多 ></text>
-    </view>
-    
-    <view class="line-list">
-      <view class="line-item" wx:for="{{ruralLines}}" wx:key="id" bindtap="goToDetail" data-id="{{item.id}}">
-        <text class="item-num {{item.type === '城区' ? 'urban' : 'rural'}}">{{item.id}}</text>
-        <view class="item-info">
-          <text class="item-route">{{item.start}} - {{item.end}}</text>
-          <text class="item-time">{{item.time}}</text>
+
+    <!-- 城乡线路 -->
+    <view class="section">
+      <view class="section-header">
+        <view class="section-title-group">
+          <text class="section-dot rural-dot"></text>
+          <text class="section-title">城乡公交</text>
         </view>
-        <text class="item-price">{{item.price}}</text>
+        <text class="more-btn" bindtap="goToList" data-type="城乡">查看全部 ›</text>
+      </view>
+      <view class="line-list-wrapper">
+        <view 
+          class="line-list-item card-animate" 
+          style="animation-delay: {{index * 0.06}}s"
+          wx:for="{{ruralLines}}" 
+          wx:key="id" 
+          bindtap="goToDetail" 
+          data-id="{{item.id}}"
+        >
+          <view class="ll-left">
+            <text class="ll-num rural">{{item.id}}</text>
+            <view class="ll-route">
+              <text class="ll-route-text">{{item.start}} → {{item.end}}</text>
+              <text class="ll-meta">{{item.time}} · {{item.interval}}</text>
+            </view>
+          </view>
+          <view class="ll-right">
+            <text class="price-tag">{{item.price}}</text>
+          </view>
+        </view>
       </view>
     </view>
-  </view>
+
+    <!-- 底部留白 -->
+    <view style="height: 120rpx;"></view>
+  </scroll-view>
 </view>

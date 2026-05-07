@@ -1,78 +1,139 @@
 <!--pages/detail/detail.wxml-->
 <view class="detail-container" wx:if="{{line}}">
-  <!-- 顶部信息 -->
-  <view class="header">
-    <view class="line-title">
-      <text class="line-num {{line.type === '城区' ? 'urban' : 'rural'}}">{{line.id}}</text>
-      <text class="line-type">{{line.type}}公交</text>
-    </view>
-    
-    <!-- 方向切换按钮 -->
-    <view class="direction-switch" bindtap="switchDirection">
-      <text class="dir-station">{{direction === 'forward' ? line.start : line.end}}</text>
-      <view class="dir-btn">
-        <text>切换</text>
-        <text class="dir-icon">{{direction === 'forward' ? '→' : '←'}}</text>
-      </view>
-      <text class="dir-station">{{direction === 'forward' ? line.end : line.start}}</text>
-    </view>
+  <scroll-view scroll-y="true" enhanced show-scrollbar="{{false}}">
 
-    <view class="info-row">
-      <view class="info-item">
-        <text class="info-label">首末班</text>
-        <text class="info-value">{{displayTime}}</text>
-      </view>
-      <view class="info-item">
-        <text class="info-label">间隔</text>
-        <text class="info-value">{{line.interval}}</text>
-      </view>
-      <view class="info-item">
-        <text class="info-label">票价</text>
-        <text class="info-value price">{{line.price}}</text>
-      </view>
-    </view>
-  </view>
-
-  <!-- 当前时间 & 运营状态 -->
-  <view class="time-status">
-    <view class="current-time">
-      <text class="time-label">当前时间</text>
-      <text class="time-value">{{currentTime}}</text>
-    </view>
-    <view class="operating-status {{isOperating ? 'operating' : 'off-duty'}}">
-      <text class="status-dot"></text>
-      <text>{{isOperating ? '运营中' : '已收车'}}</text>
-    </view>
-  </view>
-
-  <!-- 站点时间轴 -->
-  <view class="station-timeline">
-    <view class="timeline-title">
-      <text>站点列表</text>
-      <text class="station-count">共{{stations.length}}站</text>
-    </view>
-    
-    <view class="timeline-list">
-      <view class="timeline-item {{index === 0 ? 'start' : ''}} {{index === stations.length - 1 ? 'end' : ''}}" 
-            wx:for="{{stations}}" 
-            wx:key="index"
-            bindtap="showStationDetail"
-            data-station="{{item}}">
-        <view class="timeline-dot">
-          <view class="dot"></view>
-          <view class="dot-line" wx:if="{{index < stations.length - 1}}"></view>
+    <!-- 顶部渐变头 -->
+    <view class="detail-header">
+      <view class="dh-top">
+        <view class="dh-line-info">
+          <text class="dh-line-num {{line.type === '城区' ? 'urban' : 'rural'}}">{{line.id}}</text>
+          <text class="badge {{line.type === '城区' ? 'badge-urban' : 'badge-rural'}}">{{line.type}}公交</text>
         </view>
-        <view class="station-info">
-          <text class="station-name">{{item.name}}</text>
-          <view class="station-arrival" wx:if="{{isOperating}}">
-            <text class="arrival-time">{{item.arrivalTime || '约' + item.duration + '分'}}</text>
-            <text class="arrival-next" wx:if="{{item.arrivalTime}}">到站</text>
+        <text class="dh-price">{{line.price}}</text>
+      </view>
+
+      <!-- 方向切换 -->
+      <view class="direction-switch" bindtap="switchDirection">
+        <text class="dir-label dir-from">{{direction === 'forward' ? '起点' : '终点'}}</text>
+        <view class="dir-stations">
+          <text class="dir-name dir-name-left">{{direction === 'forward' ? line.start : line.end}}</text>
+          <view class="dir-swap-btn">
+            <text class="swap-icon">⇄</text>
           </view>
-          <view class="station-arrival" wx:if="{{!isOperating}}">
-            <text class="arrival-closed">未运营</text>
-          </view>
+          <text class="dir-name dir-name-right">{{direction === 'forward' ? line.end : line.start}}</text>
+        </view>
+        <text class="dir-label dir-to">{{direction === 'forward' ? '终点' : '起点'}}</text>
+        <text class="dir-hint">点击切换方向</text>
+      </view>
+
+      <!-- 关键信息 -->
+      <view class="dh-stats">
+        <view class="stat-item">
+          <text class="stat-value">{{displayTime}}</text>
+          <text class="stat-label">首末班</text>
+        </view>
+        <view class="stat-divider"></view>
+        <view class="stat-item">
+          <text class="stat-value">{{line.interval}}</text>
+          <text class="stat-label">发车间隔</text>
+        </view>
+        <view class="stat-divider"></view>
+        <view class="stat-item">
+          <text class="stat-value">{{line.stations.length}}站</text>
+          <text class="stat-label">全程站点</text>
         </view>
       </view>
     </view>
+
+    <!-- 运营状态 -->
+    <view class="status-card">
+      <view class="sc-left">
+        <text class="sc-time">{{currentTime}}</text>
+        <text class="sc-label">当前时间</text>
+      </view>
+      <view class="sc-divider-v"></view>
+      <view class="sc-right">
+        <view class="sc-status {{isOperating ? 'operating' : 'off-duty'}}">
+          <view class="sc-dot"></view>
+          <text>{{isOperating ? '运营中' : '已收车'}}</text>
+        </view>
+        <text class="sc-hint" wx:if="{{isOperating}}">{{nextBusHint}}</text>
+        <text class="sc-hint off" wx:else>请在运营时间内查看</text>
+      </view>
+    </view>
+
+    <!-- 站点时间轴 -->
+    <view class="timeline-card {{listFading ? 'fading-out' : 'fading-in'}}">
+      <view class="tl-header">
+        <text class="tl-title">途经站点</text>
+        <text class="tl-count">共 {{stations.length}} 站</text>
+      </view>
+
+      <view class="timeline">
+        <view 
+          class="tl-item {{index === 0 ? 'is-first' : ''}} {{index === stations.length - 1 ? 'is-last' : ''}}"
+          wx:for="{{stations}}" 
+          wx:key="index"
+          bindtap="showStationDetail"
+          data-station="{{item}}"
+        >
+          <!-- 左侧时间线 -->
+          <view class="tl-left">
+            <view class="tl-dot-wrap">
+              <view class="tl-dot {{index === 0 ? 'start-dot' : ''}} {{index === stations.length - 1 ? 'end-dot' : ''}}">
+                <view class="tl-dot-inner"></view>
+              </view>
+              <view class="tl-line" wx:if="{{index < stations.length - 1}}"></view>
+            </view>
+          </view>
+          
+          <!-- 右侧站点信息 -->
+          <view class="tl-right">
+            <view class="tl-station-row">
+              <text class="tl-station-name {{index === 0 ? 'is-start' : ''}} {{index === stations.length - 1 ? 'is-end' : ''}}">{{item.name}}</text>
+              <text class="tl-badge-start" wx:if="{{index === 0}}">始发</text>
+              <text class="tl-badge-end" wx:if="{{index === stations.length - 1}}">终点</text>
+            </view>
+            <view class="tl-arrival" wx:if="{{isOperating && item.arrivalTime}}">
+              <text class="tl-arrival-time">{{item.arrivalTime}}</text>
+              <text class="tl-arrival-label">预计到站</text>
+            </view>
+            <view class="tl-arrival" wx:elif="{{isOperating}}">
+              <text class="tl-arrival-estimate">约 {{item.duration}} 分钟</text>
+            </view>
+            <view class="tl-arrival off" wx:else>
+              <text class="tl-off-text">未运营</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view style="height: 80rpx;"></view>
+  </scroll-view>
+
+  <!-- 站点弹窗 -->
+  <view class="station-popup-mask" wx:if="{{stationPopup}}" bindtap="closeStationPopup">
+    <view class="station-popup" catchtap="">
+      <view class="popup-line"></view>
+      <text class="popup-name">{{stationPopup.name}}</text>
+      <view class="popup-info" wx:if="{{isOperating && stationPopup.arrivalTime}}">
+        <text class="popup-time">{{stationPopup.arrivalTime}}</text>
+        <text class="popup-label">预计到站</text>
+      </view>
+      <view class="popup-info" wx:elif="{{isOperating}}">
+        <text class="popup-estimate">约 {{stationPopup.duration}} 分钟后到站</text>
+      </view>
+      <view class="popup-info" wx:else>
+        <text class="popup-off">当前未运营</text>
+      </view>
+      <view class="popup-btn" bindtap="closeStationPopup">知道了</view>
+    </view>
   </view>
+</view>
+
+<!-- 无数据 -->
+<view class="empty-state" wx:else>
+  <text class="empty-icon">🚌</text>
+  <text class="empty-text">线路信息加载失败</text>
 </view>

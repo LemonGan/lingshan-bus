@@ -1,6 +1,13 @@
+<!--pages/bus/bus.wxml-->
 <view class="bus-container">
-  <!-- 内容区域 -->
-  <view class="content-wrap">
+  <scroll-view class="content-wrap" scroll-y="true" enhanced show-scrollbar="{{false}}">
+
+    <!-- 页头搜索 -->
+    <view class="page-header">
+      <text class="page-title">线路查询</text>
+      <text class="page-count">共 {{lines.length}} 条线路</text>
+    </view>
+
     <!-- 搜索框 -->
     <view class="search-box">
       <view class="search-input-wrap">
@@ -11,6 +18,7 @@
           placeholder-class="search-placeholder"
           bindinput="onSearch"
           value="{{searchText}}"
+          confirm-type="search"
         />
         <view class="search-clear" bindtap="onClear" wx:if="{{searchText}}">✕</view>
       </view>
@@ -18,31 +26,72 @@
 
     <!-- 标签切换 -->
     <view class="tab-bar">
-      <view class="tab-item {{activeTab === 'all' ? 'active' : ''}}" bindtap="switchTab" data-tab="all">全部</view>
-      <view class="tab-item {{activeTab === 'urban' ? 'active' : ''}}" bindtap="switchTab" data-tab="urban">城区</view>
-      <view class="tab-item {{activeTab === 'rural' ? 'active' : ''}}" bindtap="switchTab" data-tab="rural">城乡</view>
+      <view class="tab-item {{activeTab === 'all' ? 'active' : ''}}" bindtap="switchTab" data-tab="all">
+        全部
+      </view>
+      <view class="tab-item {{activeTab === 'urban' ? 'active' : ''}}" bindtap="switchTab" data-tab="urban">
+        城区
+      </view>
+      <view class="tab-item {{activeTab === 'rural' ? 'active' : ''}}" bindtap="switchTab" data-tab="rural">
+        城乡
+      </view>
     </view>
 
     <!-- 线路列表 -->
-    <scroll-view class="line-list" scroll-y="true">
-      <view class="line-card" wx:for="{{filteredLines}}" wx:key="id" bindtap="goDetail" data-line="{{item}}">
-        <view class="line-header">
-          <text class="line-id {{item.type === '城区' ? 'urban' : 'rural'}}">{{item.id}}</text>
-          <text class="line-price">{{item.price}}</text>
-        </view>
-        <view class="line-route">
-          <text class="station">{{item.start}}</text>
-          <view class="arrow-wrap">
-            <view class="arrow-line"></view>
-            <text class="duration">{{item.duration}}</text>
+    <view class="line-list" wx:if="{{filteredLines.length > 0}}">
+      <view 
+        class="line-card card-animate" 
+        style="animation-delay: {{index * 0.05}}s"
+        wx:for="{{filteredLines}}" 
+        wx:key="id" 
+        bindtap="goDetail" 
+        data-line="{{item}}"
+      >
+        <view class="lc-header">
+          <view class="lc-id-wrap">
+            <text class="lc-id {{item.type === '城区' ? 'urban' : 'rural'}}">{{item.id}}</text>
+            <text class="lc-type {{item.type === '城区' ? 'badge-urban' : 'badge-rural'}}">{{item.type}}</text>
           </view>
-          <text class="station">{{item.end}}</text>
+          <text class="price-tag">{{item.price}}</text>
         </view>
-        <view class="line-info">
-          <text class="info-item">{{item.time}}</text>
-          <text class="info-item">{{item.interval}}</text>
+        
+        <view class="lc-route">
+          <view class="lc-station from">
+            <text class="station-name">{{item.start}}</text>
+          </view>
+          <view class="lc-arrow-wrap">
+            <view class="lc-arrow-bg"></view>
+            <text class="lc-duration">约{{item.duration}}</text>
+          </view>
+          <view class="lc-station to">
+            <text class="station-name">{{item.end}}</text>
+          </view>
+        </view>
+
+        <view class="lc-footer">
+          <view class="lc-meta">
+            <text class="meta-icon">🕐</text>
+            <text>{{item.time}}</text>
+          </view>
+          <view class="lc-meta">
+            <text class="meta-icon">🔄</text>
+            <text>{{item.interval}}一班</text>
+          </view>
+          <view class="lc-meta">
+            <text class="meta-icon">📍</text>
+            <text>{{item.stations.length}}站</text>
+          </view>
         </view>
       </view>
-    </scroll-view>
-  </view>
+    </view>
+
+    <!-- 空状态 -->
+    <view class="empty-state" wx:else>
+      <text class="empty-icon">📭</text>
+      <text class="empty-text">未找到匹配的线路</text>
+      <text class="empty-hint">试试其他关键词或切换分类</text>
+    </view>
+
+    <view style="height: 120rpx;"></view>
+  </scroll-view>
 </view>

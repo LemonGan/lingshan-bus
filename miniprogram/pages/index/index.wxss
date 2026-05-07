@@ -1,72 +1,124 @@
-/* index.wxss */
-page { background: #f5f7fa; min-height: 100vh; }
-.container { position: relative; min-height: 100vh; padding-bottom: 100rpx; }
-.content-wrap { padding: 24rpx; padding-bottom: 120rpx; }
+/* pages/index/index.wxss */
 
-.search-box {
-  display: flex; align-items: center; background: #fff;
-  border-radius: 50rpx; padding: 20rpx 24rpx;
-  box-shadow: 0 4rpx 16rpx rgba(0,0,0,0.06);
+/* ===== Hero ===== */
+.hero-section {
+  position: relative;
+  margin: 24rpx;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
 }
-.search-icon { font-size: 32rpx; margin-right: 16rpx; }
-.search-input { flex: 1; font-size: 28rpx; }
-.search-placeholder { color: #999; }
+.hero-bg {
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(135deg, #1677FF 0%, #4096ff 40%, #69b1ff 100%);
+}
+.hero-content {
+  position: relative; z-index: 1;
+  padding: 48rpx 36rpx 40rpx;
+  display: flex; flex-direction: column; align-items: center;
+}
+.hero-title {
+  font-size: 48rpx; font-weight: 700; color: #fff;
+  letter-spacing: 4rpx; margin-bottom: 8rpx;
+}
+.hero-subtitle {
+  font-size: var(--font-sm); color: rgba(255,255,255,0.75);
+  margin-bottom: 32rpx;
+}
+.hero-search {
+  width: 100%; display: flex; align-items: center;
+  background: rgba(255,255,255,0.95); border-radius: var(--radius-round);
+  padding: 18rpx 28rpx; box-sizing: border-box;
+  box-shadow: 0 4rpx 20rpx rgba(0,0,0,0.1);
+}
+.hero-search .search-icon { font-size: 32rpx; margin-right: 14rpx; opacity: 0.5; }
+.hero-search .search-input { flex: 1; font-size: var(--font-md); color: var(--color-text-primary); }
+.search-placeholder { color: #bbb; }
 
+/* ===== 快速入口 ===== */
+.quick-actions {
+  display: flex; gap: 20rpx; padding: 0 24rpx; margin-bottom: 8rpx;
+}
+.action-item {
+  flex: 1; display: flex; flex-direction: column; align-items: center;
+  background: var(--color-card); border-radius: var(--radius-md);
+  padding: 28rpx 12rpx; box-shadow: var(--shadow-sm); transition: all 0.2s;
+}
+.action-item:active { transform: scale(0.96); box-shadow: var(--shadow-md); }
+.action-icon {
+  font-size: 48rpx; margin-bottom: 10rpx;
+  width: 80rpx; height: 80rpx; display: flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+}
+.action-urban { background: #e6f4ff; }
+.action-rural { background: #fef3cd; }
+.action-all  { background: #f0f5ff; }
+.action-label { font-size: var(--font-sm); color: var(--color-text-secondary); font-weight: 500; }
+
+/* ===== 通用 Section ===== */
+.section { margin: 24rpx 24rpx 0; }
 .section-header {
   display: flex; justify-content: space-between; align-items: center;
-  margin: 36rpx 0 20rpx;
+  margin-bottom: 20rpx;
 }
-.section-title { font-size: 34rpx; font-weight: 600; color: #333; }
-.more-btn { font-size: 26rpx; color: #999; }
+.section-title-group { display: flex; align-items: center; }
+.section-dot {
+  width: 10rpx; height: 28rpx; border-radius: 5rpx;
+  background: var(--color-primary); margin-right: 12rpx;
+}
+.section-dot.urban-dot { background: var(--color-primary); }
+.section-dot.rural-dot { background: var(--color-warning); }
+.section-title { font-size: var(--font-lg); font-weight: 600; color: var(--color-text-primary); }
+.more-btn { font-size: var(--font-sm); color: var(--color-text-hint); }
 
-/* 热门线路 */
-.line-grid {
-  display: flex; flex-wrap: wrap; gap: 20rpx;
-}
+/* ===== 热门线路卡片 ===== */
+.line-grid { display: flex; flex-wrap: wrap; gap: 20rpx; }
 .line-card {
-  width: calc(50% - 10rpx); background: #fff; border-radius: 16rpx;
-  padding: 24rpx; box-sizing: border-box;
-  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.06);
+  width: calc(50% - 10rpx); background: var(--color-card);
+  border-radius: var(--radius-md); padding: 24rpx;
+  box-sizing: border-box; box-shadow: var(--shadow-sm);
+  position: relative; overflow: hidden; transition: transform 0.15s;
 }
-.line-number-row { margin-bottom: 12rpx; }
-.line-number { font-size: 36rpx; font-weight: 700; }
-.line-number.urban { color: #1677FF; }
-.line-number.rural { color: #f59e0b; }
-.line-name { display: block; font-size: 26rpx; color: #333; margin-bottom: 8rpx; }
-.line-time { font-size: 22rpx; color: #999; }
+.line-card:active { transform: scale(0.97); }
+.card-badge {
+  position: absolute; top: 0; right: 0;
+  padding: 6rpx 18rpx; font-size: var(--font-xs);
+  border-radius: 0 0 0 16rpx; font-weight: 500;
+}
+.card-badge.badge-urban { background: var(--color-primary-light); color: var(--color-primary); }
+.card-badge.badge-rural { background: var(--color-warning-bg); color: var(--color-warning); }
+.card-id-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14rpx; }
+.line-number { font-size: 40rpx; font-weight: 700; }
+.line-number.urban { color: var(--color-primary); }
+.line-number.rural { color: var(--color-warning); }
+.card-price {
+  font-size: var(--font-sm); font-weight: 600; color: var(--color-warning);
+  background: var(--color-warning-bg); padding: 4rpx 14rpx; border-radius: 20rpx;
+}
+.card-route { display: flex; align-items: center; margin-bottom: 14rpx; }
+.route-from, .route-to { font-size: var(--font-sm); color: var(--color-text-primary); font-weight: 500; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.route-arrow { font-size: 20rpx; color: var(--color-text-hint); margin: 0 8rpx; flex-shrink: 0; }
+.card-meta { display: flex; flex-direction: column; gap: 4rpx; }
+.meta-item { font-size: var(--font-xs); color: var(--color-text-hint); }
 
-/* 线路列表 */
-.line-list { background: #fff; border-radius: 16rpx; overflow: hidden; }
-.line-item {
-  display: flex; align-items: center; padding: 24rpx;
-  border-bottom: 1rpx solid #f0f0f0;
+/* ===== 线路列表 ===== */
+.line-list-wrapper {
+  background: var(--color-card); border-radius: var(--radius-md);
+  overflow: hidden; box-shadow: var(--shadow-sm);
 }
-.line-item:last-child { border-bottom: none; }
-.item-num { font-size: 32rpx; font-weight: 700; min-width: 100rpx; }
-.item-num.urban { color: #1677FF; }
-.item-num.rural { color: #f59e0b; }
-.item-info { flex: 1; margin-left: 20rpx; }
-.item-route { display: block; font-size: 28rpx; color: #333; font-weight: 500; }
-.item-time { font-size: 22rpx; color: #999; margin-top: 6rpx; }
-.item-price { font-size: 24rpx; color: #f59e0b; background: #fef3cd; padding: 4rpx 12rpx; border-radius: 8rpx; }
+.line-list-item {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 24rpx; border-bottom: 1rpx solid #f5f5f5;
+  transition: background 0.15s;
+}
+.line-list-item:active { background: #fafafa; }
+.line-list-item:last-child { border-bottom: none; }
+.ll-left { display: flex; align-items: center; flex: 1; min-width: 0; }
+.ll-num { font-size: var(--font-xl); font-weight: 700; min-width: 90rpx; }
+.ll-num.urban { color: var(--color-primary); }
+.ll-num.rural { color: var(--color-warning); }
+.ll-route { margin-left: 16rpx; flex: 1; min-width: 0; }
+.ll-route-text { display: block; font-size: var(--font-md); color: var(--color-text-primary); font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ll-meta { display: block; font-size: var(--font-xs); color: var(--color-text-hint); margin-top: 4rpx; }
+.ll-right { flex-shrink: 0; }
 
-/* 底部占位 */
-.bottom-placeholder { height: 100rpx; }
-
-/* 底部导航 */
-.bottom-nav {
-  position: fixed; left: 0; right: 0; bottom: 0;
-  display: flex; background: #fff;
-  border-top: 1rpx solid #eee;
-  padding: 16rpx 0;
-  padding-bottom: calc(16rpx + env(safe-area-inset-bottom));
-  z-index: 100;
-}
-.nav-item {
-  flex: 1; display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  color: #999;
-}
-.nav-item.active { color: #1677FF; }
-.nav-icon { font-size: 40rpx; }
-.nav-text { font-size: 22rpx; margin-top: 4rpx; }
+/* 移除旧的底部导航样式 - 改用 tabBar */

@@ -1,4 +1,5 @@
 {
+  "style": "v2",
   "pages": [
     "pages/index/index",
     "pages/bus/bus",
